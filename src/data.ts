@@ -3,6 +3,7 @@ import imageTwo from './assets/slider/img2.jpg'
 import imageThree from './assets/slider/img3.jpg'
 import smartphones from './assets/categories/smartphones.jpg'
 import laptops from './assets/categories/laptops.jpg'
+import headphones from './assets/categories/headphones.jpg'
 
 export const sliderItems = [
     {
@@ -15,7 +16,7 @@ export const sliderItems = [
     {
         id: 2,
         img: imageTwo,
-        title: 'New iPhone premier',
+        title: 'New iPhone',
         desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.",
         bg: "#2b2a2e" ,
     },
@@ -39,5 +40,10 @@ export const categories = [
         id: 2,
         img: smartphones,
         title: 'SMARTPHONES',
+    },
+    {
+        id: 3,
+        img: headphones,
+        title: 'HEADPHONES',
     },
 ]
