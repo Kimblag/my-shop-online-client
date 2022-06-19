@@ -17,7 +17,7 @@ export const sliderItems = [
         img: imageTwo,
         title: 'New iPhone premier',
         desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.",
-        bg: "#141213" ,
+        bg: "#2b2a2e" ,
     },
     {
         id: 3,
@@ -33,11 +33,11 @@ export const categories = [
     {
         id: 1,
         img: laptops,
-        title: 'Notebooks',
+        title: 'NOTEBOOKS',
     },
     {
         id: 2,
         img: smartphones,
-        title: 'SmartPhones',
+        title: 'SMARTPHONES',
     },
 ]
