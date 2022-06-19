@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Arrow, Wrapper, Slide, ImgContainer, Image, InfoContainer, Title, Desc } from '../styles/Slider.styles'
 import ArrowLeftRoundedIcon from '@mui/icons-material/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
@@ -32,8 +33,11 @@ const Slider: React.FC = (): JSX.Element => {
                             <Desc>
                                 {item.desc}
                             </Desc>
-                            <button className="btn"> EXPLORE NOW!
-                            </button>
+                            <Link to="/shop">
+                                <button className="btn">
+                                    EXPLORE NOW!
+                                </button>
+                            </Link>
                         </InfoContainer>
                     </Slide>
                 ))}

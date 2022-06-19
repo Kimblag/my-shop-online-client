@@ -1,3 +1,5 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Wrapper, Left, Center, Right, SearchContainer, Input, Logo, MenuItem } from '../styles/Navbar.styles'
 import { BsSearch } from 'react-icons/bs'
 import { ShoppingCart } from '@mui/icons-material'
@@ -16,9 +18,11 @@ const Navbar: React.FC = (): JSX.Element => {
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Logo>
-                        My Shop Online
-                    </Logo>
+                    <Link to="/" style={{textDecoration: "none", color: "black" }}>
+                        <Logo>
+                            My Shop Online
+                        </Logo>
+                    </Link>
                 </Center>
                 <Right>
                     <MenuItem>Register</MenuItem>
