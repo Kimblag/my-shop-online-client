@@ -40,8 +40,9 @@ export const Button = styled.button`
     border: none;
     font-family: inherit;
     font-weight: 500;
-    color: black;
+    color: gray;
     background-color: white;
+    cursor: pointer;
     &:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);

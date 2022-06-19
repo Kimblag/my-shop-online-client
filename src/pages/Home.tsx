@@ -1,4 +1,5 @@
 import Categories from '../components/Categories'
+import Featured from '../components/Featured'
 import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
 
@@ -8,6 +9,7 @@ const Home: React.FC = (): JSX.Element => {
       <Navbar />
       <Slider />
       <Categories />
+      <Featured />
     </div>
   )
 }

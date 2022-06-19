@@ -9,7 +9,6 @@ type Props = {
     }
 }
 
-
 const CategoryItem: React.FC<Props> = ({ item }): JSX.Element => {
     return (
         <Container>
