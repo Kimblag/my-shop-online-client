@@ -1,15 +1,15 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 type ArrowProps = {
-    children: React.ReactNode
-    direction: "left" | "right"
+  children: React.ReactNode
+  direction: "left" | "right"
 }
 type SlideProps = {
-    children: React.ReactNode
-    bg: string
+  children: React.ReactNode
+  bg: string
 }
 type WrapperProps = {
-    slideIndex: number;
+  slideIndex: number;
 }
 
 
@@ -33,8 +33,8 @@ export const Arrow = styled.div<ArrowProps>`
     position: absolute;
     top: 0;
     bottom: 0;
-    left: ${props=> props.direction === "left" && "10px"};
-    right: ${props=> props.direction === "right" && "10px"};
+    left: ${props => props.direction === "left" && "10px"};
+    right: ${props => props.direction === "right" && "10px"};
     margin: auto;
     cursor: pointer;
     opacity: 0.5;
@@ -54,7 +54,7 @@ export const Slide = styled.div<SlideProps>`
   height: 100vh;
   display: flex;
   align-items: center;
-  background-color: ${props=> props.bg};
+  background-color: ${props => props.bg};
 `;
 
 export const ImgContainer = styled.div`
@@ -85,11 +85,4 @@ export const Desc = styled.p`
   font-family: 'Urbanist', sans-serif;
 `;
 
-export const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-  color: white;
-  border: 0.5px solid white;
-`;
+

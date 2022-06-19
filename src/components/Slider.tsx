@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Container, Arrow, Wrapper, Slide, ImgContainer, Image, InfoContainer, Title, Desc, Button } from '../styles/Slider.styles'
+import { Container, Arrow, Wrapper, Slide, ImgContainer, Image, InfoContainer, Title, Desc } from '../styles/Slider.styles'
 import ArrowLeftRoundedIcon from '@mui/icons-material/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import { sliderItems } from '../data';
-
+import '../styles/slider.css'
 
 const Slider: React.FC = (): JSX.Element => {
     const [slideIndex, setSlideIndex] = useState<number>(0)
@@ -32,7 +32,8 @@ const Slider: React.FC = (): JSX.Element => {
                             <Desc>
                                 {item.desc}
                             </Desc>
-                            <Button>SHOP NOW</Button>
+                            <button className="btn"> EXPLORE NOW!
+                            </button>
                         </InfoContainer>
                     </Slide>
                 ))}
