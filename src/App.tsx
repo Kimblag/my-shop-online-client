@@ -1,11 +1,11 @@
 import React from 'react';
 import Home from './pages/Home';
 
-function App() {
+const App: React.FC = (): JSX.Element => {
   return (
-     <>
-     <Home />
-     </>
+    <>
+      <Home />
+    </>
   );
 }
 
