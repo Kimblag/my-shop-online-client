@@ -1,7 +1,6 @@
 import React from 'react'
-import { Circle, Container, Icon, Image, Info } from '../styles/Product.styles'
-import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 import { IProduct } from '../redux/types'
+import '../styles/product.css'
 
 type Props = {
   product: IProduct
@@ -9,21 +8,8 @@ type Props = {
 
 const Product: React.FC<Props> = ({ product }): JSX.Element => {
   return (
-    <Container>
-      <Circle />
-      <Image src={product.image} />
-      <Info>
-        <Icon>
-          <ShoppingCartOutlined />
-        </Icon>
-        <Icon>
-          <SearchOutlined />
-        </Icon>
-        <Icon>
-          <FavoriteBorderOutlined />
-        </Icon>
-      </Info>
-    </Container>
+
+    <div>Product</div>
   )
 }
 

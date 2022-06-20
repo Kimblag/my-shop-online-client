@@ -20,6 +20,7 @@ export const Container = styled.div`
     position: relative;
     overflow: hidden;
     background-color: #000000;
+    margin-top: 10px;
 `
 
 export const Arrow = styled.div<ArrowProps>`
