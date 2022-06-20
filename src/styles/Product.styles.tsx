@@ -19,6 +19,7 @@ export const Info = styled.div`
 export const Container = styled.div`
   flex: 1;
   margin: 5px;
+  width: 100%;
   min-width: 280px;
   height: 350px;
   display: flex;
@@ -40,7 +41,9 @@ export const Circle = styled.div`
 `;
 
 export const Image = styled.img`
-  height: 75%;
+  height: 60%;
+  width: auto;
+  object-fit: cover;
   z-index: 2;
 `;
 

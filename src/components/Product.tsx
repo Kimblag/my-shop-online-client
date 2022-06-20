@@ -1,13 +1,17 @@
 import React from 'react'
 import { Circle, Container, Icon, Image, Info } from '../styles/Product.styles'
 import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
+import { IProduct } from '../redux/types'
 
+type Props = {
+  product: IProduct
+}
 
-const Product: React.FC = (): JSX.Element => {
+const Product: React.FC<Props> = ({ product }): JSX.Element => {
   return (
     <Container>
       <Circle />
-      <Image />
+      <Image src={product.image} />
       <Info>
         <Icon>
           <ShoppingCartOutlined />
