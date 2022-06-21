@@ -1,8 +1,14 @@
 import { createTheme } from "@mui/material/styles"
+declare module '@mui/material/styles' {
+    interface Components {
+      [key: string]: any
+    }
+  }
 
 export const Colors = {
     primary: "#1C1C1C",
-    secondary: '#DADDD8',
+    secondary: '#9a8c98',
+    tertiary: '#EEF0F2',
     success: "#a4c3b2",
     info: "#00a2ff",
     danger: "#a4161a",
@@ -37,6 +43,19 @@ const theme = createTheme({
             defaultProps: {
                 disableRipple: true,
                 disableElevation: true,
+            }
+        },
+        MyShopButton:{
+            styleOverrides: {
+                root: {
+                    color: Colors.white
+                },
+                primary: {
+                    background: Colors.primary,
+                    "&:hover": {
+                        background: Colors.primary,
+                    }
+                }
             }
         }
     },
