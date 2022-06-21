@@ -5,6 +5,7 @@ import Footer from '../components/footer/Footer'
 import Navbar from '../components/navbar/Navbar'
 import Products from '../components/products/Products'
 import Promotions from '../components/promotions/Promotions'
+import SearchBox from '../components/search/SearchBox'
 
 const Home: React.FC = (): JSX.Element => {
   return (
@@ -18,6 +19,7 @@ const Home: React.FC = (): JSX.Element => {
       <Products />
       <Footer />
       <AppDrawer />
+      <SearchBox />
     </>
   )
 }

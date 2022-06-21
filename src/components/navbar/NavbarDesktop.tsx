@@ -3,6 +3,7 @@ import React from 'react'
 import { MyList, NavbarContainer, NavbarHeader } from '../../styles/navbar'
 import SearchIcon from '@mui/icons-material/Search'
 import Actions from './actions'
+import { useUIContext } from '../context/ui'
 
 type NavbarProps = {
     matches?: boolean
@@ -10,6 +11,7 @@ type NavbarProps = {
 
 const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
 
+    const { setShowSearchBox } = useUIContext()
     return (
         <NavbarContainer>
             <NavbarHeader>My Shop</NavbarHeader>
@@ -19,7 +21,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
                 <ListItemText primary="Products" />
                 <ListItemText primary="Contact Us" />
                 <ListItemButton>
-                    <ListItemIcon>
+                    <ListItemIcon onClick={() => setShowSearchBox(true)}>
                         <SearchIcon />
                     </ListItemIcon>
                 </ListItemButton>
