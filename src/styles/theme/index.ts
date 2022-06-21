@@ -46,6 +46,24 @@ const theme = createTheme({
                 disableElevation: true,
             }
         },
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    width: 250,
+                    background: Colors.primary,
+                    color: Colors.tertiary,
+                    borderRadius: '0px 100px 0px 0px',
+                    borderRight: `2px solid ${Colors.tertiary}`
+                }
+            }
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    borderColor: lighten(0.2, Colors.primary)
+                }
+            }
+        },
         MyShopButton: {
             styleOverrides: {
                 root: {
