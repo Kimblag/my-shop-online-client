@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import Banner from '../components/banner/banner'
+import Footer from '../components/footer/Footer'
 import Navbar from '../components/navbar/Navbar'
 import Products from '../components/products/Products'
 import Promotions from '../components/promotions/Promotions'
@@ -14,6 +15,7 @@ const Home: React.FC = (): JSX.Element => {
       <Typography variant='h4'>Our Products</Typography>
     </Box>
     <Products />
+    <Footer />
     </>
   )
 }

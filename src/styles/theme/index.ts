@@ -1,9 +1,10 @@
 import { createTheme } from "@mui/material/styles"
+import { lighten } from "polished"
 declare module '@mui/material/styles' {
     interface Components {
-      [key: string]: any
+        [key: string]: any
     }
-  }
+}
 
 export const Colors = {
     primary: "#1C1C1C",
@@ -45,7 +46,7 @@ const theme = createTheme({
                 disableElevation: true,
             }
         },
-        MyShopButton:{
+        MyShopButton: {
             styleOverrides: {
                 root: {
                     color: Colors.white
@@ -53,7 +54,13 @@ const theme = createTheme({
                 primary: {
                     background: Colors.primary,
                     "&:hover": {
-                        background: Colors.primary,
+                        background: lighten(0.05, Colors.primary),
+                    }
+                },
+                secondary: {
+                    background: `${Colors.secondary}`,
+                    "&:hover": {
+                        background: lighten(0.05, Colors.primary),
                     }
                 }
             }
