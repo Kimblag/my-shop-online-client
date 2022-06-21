@@ -4,15 +4,17 @@ import { NavbarContainer, NavbarHeader } from '../../styles/navbar'
 import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
 import Actions from './actions'
+import { useUIContext } from '../context/ui'
 
 type NavbarProps = {
   matches?: boolean
 }
 
 const NavbarMobile: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
+  const {setDrawerOpen} = useUIContext()
   return (
     <NavbarContainer>
-      <IconButton>
+      <IconButton onClick={() => setDrawerOpen(true)} >
         <MenuIcon />
       </IconButton>
       <NavbarHeader textAlign={'center'} variant='h4'>
