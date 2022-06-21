@@ -92,7 +92,7 @@ const Footer: React.FC = (): JSX.Element => {
                     <FooterTitle variant="body1">Newsletter</FooterTitle>
                     <Stack>
                         <SubscribeTextField
-                            color="primary"
+                            color="secondary"
                             label="Email address"
                             variant="standard"
                         />

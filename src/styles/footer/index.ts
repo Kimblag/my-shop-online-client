@@ -6,11 +6,14 @@ export const FooterTitle = styled(Typography)(() => ({
     marginBottom: '1em',
 }))
 
-export const SubscribeTextField = styled(TextField)(() =>({
+export const SubscribeTextField = styled(TextField)(() => ({
     '.MuiInputLabel-root': {
         color: Colors.tertiary,
     },
-    '.MuiInput-root:before': {
+    '.MuiInput-root': {
+        color: Colors.secondary,
+    },
+    '.MuiInput-root::before': {
         borderBottom: `1px solid ${Colors.secondary}`,
     },
 }))

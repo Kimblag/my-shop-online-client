@@ -11,7 +11,7 @@ type NavbarProps = {
 }
 
 const NavbarMobile: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
-  const {setDrawerOpen} = useUIContext()
+  const {setDrawerOpen, setShowSearchBox} = useUIContext()
   return (
     <NavbarContainer>
       <IconButton onClick={() => setDrawerOpen(true)} >
@@ -20,8 +20,8 @@ const NavbarMobile: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
       <NavbarHeader textAlign={'center'} variant='h4'>
         My Shop
       </NavbarHeader>
-      <IconButton>
-        <SearchIcon />
+      <IconButton onClick={() => setShowSearchBox(true)}>
+        <SearchIcon  />
       </IconButton>
       <Actions matches={matches} />
     </NavbarContainer>
