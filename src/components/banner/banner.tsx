@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles'
 import headphones from '../../assets/slider/headphones.png'
 
 import React from 'react'
-import { Bannercontainer, BannerContent, BannerDescription, BannerImage, BannerTitle } from '../../styles/banner'
+import { Bannercontainer, BannerContent, BannerDescription, BannerImage, BannerShopButton, BannerTitle } from '../../styles/banner'
 import { Colors } from '../../styles/theme'
 
 const Banner: React.FC = (): JSX.Element => {
@@ -25,6 +25,7 @@ const Banner: React.FC = (): JSX.Element => {
                     Ipsam reiciendis commodi pariatur ducimus impedit error fugit dolores sed quisquam, 
                     reprehenderit amet deleniti vitae quaerat animi dolorum provident eveniet qui! Itaque.
                 </BannerDescription>
+                <BannerShopButton color='secondary'>Show Now</BannerShopButton>
             </BannerContent>
         </Bannercontainer>
     )
