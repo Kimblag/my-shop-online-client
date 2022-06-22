@@ -63,7 +63,7 @@ export const ProductMetaWrapper = styled(Box)(({ theme }: { theme: Theme }) => (
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-}));
+}))
 
 export const ProductActionsWrapper = styled(Box)(({ show, theme }: IProductActionsButton) => ({
     [theme!.breakpoints.up("md")]: {
@@ -73,4 +73,16 @@ export const ProductActionsWrapper = styled(Box)(({ show, theme }: IProductActio
         top: '20%',
         animation: show && `${slideInRight} 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,
     }
-}));
+}))
+
+export const ProductDetailWrapper = styled(Box)(({theme}) => ({
+    display: "flex",
+    padding: theme.spacing(4)
+}))
+
+export const ProductDetailInfoWrapper = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: 500,
+    lineHeight: 1.5,
+}))

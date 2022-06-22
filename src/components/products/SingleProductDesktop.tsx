@@ -5,6 +5,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 import FitScreenIcon from "@mui/icons-material/FitScreen"
 import ShareIcon from "@mui/icons-material/Share"
 import ProductMeta from './ProductMeta'
+import { useDialogModal } from '../../hooks/useDialogModal'
+import ProductDetail from '../productDetail/ProductDetail'
+
+
 type Props = {
     product?: any
     matches?: boolean
@@ -20,6 +24,8 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
     const handleMouseLeave = () => {
         setShowOptions(false)
     }
+    const { open, toggle } = useDialogModal()
+
 
     return (
         <>
@@ -39,13 +45,15 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
                         <ProductActionButton>
                             <ShareIcon />
                         </ProductActionButton>
-                        <ProductActionButton>
+                        <ProductActionButton onClick={toggle}>
                             <FitScreenIcon />
                         </ProductActionButton>
                     </Stack>
                 </ProductActionsWrapper>
             </Product>
-                <ProductMeta product={product} matches={matches} />
+            <ProductMeta product={product} matches={matches} />
+            <ProductDetail open={open} onClose={toggle} product={product} />
+
         </>
     )
 }
