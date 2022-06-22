@@ -37,7 +37,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
                 <ListItem>
 
                     <Link to='/contact' style={{textDecoration: 'none', color: 'inherit'}}>
-                        <ListItemText primary="Contact Us" />
+                        <ListItemText primary="Contact" />
                     </Link>
                 </ListItem>
                 {/* <ListItemText primary="Home" />

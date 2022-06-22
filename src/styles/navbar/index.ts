@@ -13,9 +13,9 @@ export const NavbarContainer = styled(Box)(() => ({
 
 
 export const NavbarHeader = styled(Typography)(() => ({
-    padding: '4px',
+    padding: '5px',
     flexGrow: 1,
-    fontSize: '4em',
+    fontSize: '3.2em',
     fontFamily: '"Montez", "cursive"',
     color: Colors.secondary,
 }))
