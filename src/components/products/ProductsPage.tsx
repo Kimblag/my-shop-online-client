@@ -1,24 +1,20 @@
 import { Container, Grid, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllProducts } from '../../redux/actions/index.actions'
-import { IAppDispatch, RootState } from '../../redux/store/index.store'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { IProduct } from '../../redux/types'
 import SingleProduct from './SingleProduct'
 import SingleProductDesktop from './SingleProductDesktop'
 
+interface Props {
+  currentProducts: IProduct[] | undefined
+}
 
-const ProductsPage: React.FC = (): JSX.Element => {
+const ProductsPage: React.FC<Props> = ({ currentProducts }): JSX.Element => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
-  const dispatch: IAppDispatch = useDispatch()
-  const products = useSelector((state: RootState) => state.reducer.products)
 
-  useEffect(() => {
-    dispatch(getAllProducts())
-  }, [dispatch])
   var idInc: number = 1
-  const renderProducts = products?.map(product => (
+  const renderProducts = currentProducts?.map(product => (
     <Grid item key={idInc++} xs={2} sm={4} md={4} display="flex" flexDirection="column" alignItems="center">
       {matches ? <SingleProduct product={product} matches={matches} /> : <SingleProductDesktop product={product} matches={matches} />}
 
