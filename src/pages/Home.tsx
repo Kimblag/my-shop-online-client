@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import Banner from '../components/banner/banner'
+import Cart from '../components/cart/Cart'
 import AppDrawer from '../components/drawer/AppDrawer'
 import Footer from '../components/footer/Footer'
 import Navbar from '../components/navbar/Navbar'
@@ -19,6 +20,7 @@ const Home: React.FC = (): JSX.Element => {
       <Products />
       <Footer />
       <AppDrawer />
+      <Cart />
       <SearchBox />
     </>
   )

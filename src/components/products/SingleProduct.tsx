@@ -33,7 +33,7 @@ const SingleProduct: React.FC<Props> = ({ product, matches }): JSX.Element => {
                         </ProductActionButton>
                     </Stack>
                 </ProductActionsWrapper>
-                <ProductAddToCart variant="contained">Add to Cart</ProductAddToCart>
+                <ProductAddToCart variant="contained" >Add to Cart</ProductAddToCart>
             </Product>
             <ProductDetail open={open} onClose={toggle} product={product} />
         </>
