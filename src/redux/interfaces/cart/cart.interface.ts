@@ -1,6 +1,6 @@
-import { IProduct } from "../products/product.interface";
+import { ProductDocument } from "../products/product.interface";
 
-export interface CartItem extends IProduct{
+export interface CartItem extends ProductDocument{
     quantity: number
 }
 

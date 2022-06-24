@@ -7,11 +7,12 @@ import { Product, ProductDetailInfoWrapper, ProductDetailWrapper, ProductImage }
 import ButtonIncDec from '../ui/ButtonIncDec'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Facebook, Instagram, Twitter } from '@mui/icons-material'
+import { ProductDocument } from '../../redux/interfaces/products/product.interface'
 
 export interface IProps {
     open: boolean
     onClose: () => void
-    product: any
+    product: ProductDocument
 }
 interface TransitionProps {
     children: React.ReactElement<any, any>;
@@ -63,9 +64,10 @@ const ProductDetail: React.FC<IProps> = ({ open, onClose, product }): JSX.Elemen
                         alignItems='center'
                         justifyContent='space-between'
                     >
+                        {/*//* buttons */}
+                        <ButtonIncDec product={product} />
 
-                        <ButtonIncDec />
-                        <Button variant='contained'>Add to cart</Button>
+                        {/* <Button variant='contained'>Add to cart</Button> */}
                     </Box>
                     <Box
                         display='flex'

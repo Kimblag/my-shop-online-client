@@ -1,5 +1,5 @@
 export interface IReview {
-    id?: string;
+    _id?: string;
     userId: string
     name: string;
     rating: number;
@@ -8,7 +8,6 @@ export interface IReview {
 }
 
 export interface IProduct {
-    id?: string;
     name: string;
     description: string;
     price: number;
@@ -20,4 +19,9 @@ export interface IProduct {
     numOfReviews: number;
     reviews: IReview[];
     deleted: boolean;
+}
+
+export interface ProductDocument extends IProduct{
+    _id: string;
+    _v: number;
 }

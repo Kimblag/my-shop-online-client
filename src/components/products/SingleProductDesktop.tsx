@@ -7,25 +7,25 @@ import ShareIcon from "@mui/icons-material/Share"
 import ProductMeta from './ProductMeta'
 import { useDialogModal } from '../../hooks/useDialogModal'
 import ProductDetail from '../productDetail/ProductDetail'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { decrementProduct, deleteProduct, incrementProduct } from '../../redux/features/products/products.slice'
+import { ProductDocument } from '../../redux/interfaces/products/product.interface'
 
 
 type Props = {
-    product?: any
+    product: ProductDocument
     matches?: boolean
 }
 
 
 const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Element => {
     const [showOptions, setShowOptions] = useState<boolean>(false)
-    const handleMouseEnter = () => {
-        setShowOptions(true)
-    }
-
-    const handleMouseLeave = () => {
-        setShowOptions(false)
-    }
+    const handleMouseEnter = () => setShowOptions(true)
+    const handleMouseLeave = () => setShowOptions(false)
     const { open, toggle } = useDialogModal()
-
+    const dispatch = useAppDispatch()
+    const { cart } = useAppSelector(state => state.products)
+    const addToCartText = cart.findIndex(item => item._id === product._id) >= 0 ? 'Remove from cart' : 'Add to cart'
 
     return (
         <>
@@ -35,11 +35,10 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
                     <FavoriteIcon />
                 </ProductFavButton>
                 {
-                    (showOptions) && <ProductAddToCart show={showOptions} variant="contained">
-                        Add to cart
+                    (showOptions) && <ProductAddToCart onClick={() => addToCartText === 'Add to cart' ? dispatch(incrementProduct(product)) : dispatch(deleteProduct(product))} show={showOptions} variant="contained">
+                        {addToCartText}
                     </ProductAddToCart>
                 }
-
                 <ProductActionsWrapper show={showOptions}>
                     <Stack direction='column'>
                         <ProductActionButton>
