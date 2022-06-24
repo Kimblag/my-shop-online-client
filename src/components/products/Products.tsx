@@ -1,21 +1,20 @@
 import { Container, Grid, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllProducts } from '../../redux/actions/index.actions'
-import { IAppDispatch, RootState } from '../../redux/store/index.store'
 import React, { useEffect } from 'react'
 import SingleProduct from './SingleProduct'
 import SingleProductDesktop from './SingleProductDesktop'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { getProducts } from '../../redux/features/products/products.slice'
 
 const Products: React.FC = (): JSX.Element => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down('md'))
-    const dispatch: IAppDispatch = useDispatch()
-    const products = useSelector((state: RootState) => state.reducer.products)
-    const sliced = products?.slice(0, 6)
+    const dispatch = useAppDispatch()
+    const state = useAppSelector((state) => state.products)
+    const sliced = state.products?.slice(0, 6)
 
     useEffect(() => {
-        dispatch(getAllProducts())
+        dispatch(getProducts())
     }, [dispatch])
     var idInc: number = 1
     const renderProducts = sliced?.map(product => (

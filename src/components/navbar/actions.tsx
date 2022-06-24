@@ -5,6 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import PersonIcon from '@mui/icons-material/Person'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Colors } from '../../styles/theme'
+import { useUIContext } from '../context/ui'
 
 type ActionsProps = {
   matches?: boolean
@@ -12,11 +13,12 @@ type ActionsProps = {
 
 const Actions: React.FC<ActionsProps> = ({ matches }): JSX.Element => {
   const Component = matches ? ActionIconsContainerMobile : ActionIconsContainerDesktop
+  const { setShowCart } = useUIContext()
 
   return (
     <Component>
       <MyList type='row'>
-        <ListItemButton sx={{ justifyContent: 'center' }}>
+        <ListItemButton sx={{ justifyContent: 'center' }} onClick={() => setShowCart(true)}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }}>
             <ShoppingCartIcon />
           </ListItemIcon>

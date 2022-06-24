@@ -1,12 +1,12 @@
 import { Container, Grid, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import React from 'react'
-import { IProduct } from '../../redux/types'
+import { IProduct } from '../../redux/interfaces/products/product.interface'
 import SingleProduct from './SingleProduct'
 import SingleProductDesktop from './SingleProductDesktop'
 
 interface Props {
-  currentProducts: IProduct[] | undefined
+  currentProducts: IProduct[]
 }
 
 const ProductsPage: React.FC<Props> = ({ currentProducts }): JSX.Element => {

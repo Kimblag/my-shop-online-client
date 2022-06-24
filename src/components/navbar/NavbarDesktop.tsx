@@ -11,7 +11,6 @@ type NavbarProps = {
 }
 
 const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
-
     const { setShowSearchBox } = useUIContext()
     return (
         <NavbarContainer>
@@ -40,10 +39,6 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
                         <ListItemText primary="Contact" />
                     </Link>
                 </ListItem>
-                {/* <ListItemText primary="Home" />
-                <ListItemText primary="Categories" />
-                <ListItemText primary="Products" />
-                <ListItemText primary="Contact Us" /> */}
                 <ListItemButton>
                     <ListItemIcon onClick={() => setShowSearchBox(true)}>
                         <SearchIcon />
