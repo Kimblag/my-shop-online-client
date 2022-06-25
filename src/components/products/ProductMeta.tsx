@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material'
+import { Box } from '@mui/system'
 import React from 'react'
 import { ProductMetaWrapper } from '../../styles/products'
 
@@ -10,10 +11,12 @@ type Props = {
 const ProductMeta: React.FC<Props> = ({ product, matches }) => {
     return (
         <ProductMetaWrapper>
-            <Typography variant={matches ? 'h6' : 'h5'} lineHeight={2}>
-                {product.name}
-            </Typography>
-            <Typography variant={matches ? 'caption' : 'body1'}>
+            <Box sx={{ minHeight: matches ? '80px' : '' }}>
+                <Typography variant={matches ? 'body1' : 'h5'} lineHeight={2}>
+                    {product.name}
+                </Typography>
+            </Box>
+            <Typography variant={matches ? 'body1' : 'body1'}>
                 ${product.price}
             </Typography>
         </ProductMetaWrapper>

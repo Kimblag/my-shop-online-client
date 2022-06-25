@@ -10,12 +10,13 @@ export interface IReview {
 export interface IProduct {
     name: string;
     description: string;
+    brand: string,
     price: number;
     discountPercentage: number;
     rating: number;
     stock: number;
     image: string;
-    category: Array<string>;
+    category: string;
     numOfReviews: number;
     reviews: IReview[];
     deleted: boolean;
@@ -25,3 +26,4 @@ export interface ProductDocument extends IProduct{
     _id: string;
     _v: number;
 }
+

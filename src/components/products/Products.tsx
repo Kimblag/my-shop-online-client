@@ -17,6 +17,7 @@ const Products: React.FC = (): JSX.Element => {
         dispatch(getProducts())
     }, [dispatch])
     var idInc: number = 1
+    
     const renderProducts = sliced?.map(product => (
         <Grid item key={idInc++} xs={2} sm={4} md={4} display="flex" flexDirection="column" alignItems="center">
             {matches ?  <SingleProduct product={product} matches={matches} /> : <SingleProductDesktop product={product} matches={matches} /> }

@@ -8,15 +8,14 @@ import ProductMeta from './ProductMeta'
 import { useDialogModal } from '../../hooks/useDialogModal'
 import ProductDetail from '../productDetail/ProductDetail'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { decrementProduct, deleteProduct, incrementProduct } from '../../redux/features/products/products.slice'
 import { ProductDocument } from '../../redux/interfaces/products/product.interface'
-
+import { addToCart, getTotal, removeFromCart } from '../../redux/features/cart/cart.slice'
+import { useEffect } from 'react'
 
 type Props = {
     product: ProductDocument
     matches?: boolean
 }
-
 
 const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Element => {
     const [showOptions, setShowOptions] = useState<boolean>(false)
@@ -24,8 +23,21 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
     const handleMouseLeave = () => setShowOptions(false)
     const { open, toggle } = useDialogModal()
     const dispatch = useAppDispatch()
-    const { cart } = useAppSelector(state => state.products)
-    const addToCartText = cart.findIndex(item => item._id === product._id) >= 0 ? 'Remove from cart' : 'Add to cart'
+    const { cartItems } = useAppSelector(state => state.cart)
+    const addToCartText = cartItems.findIndex(item => item._id === product._id) >= 0 ? 'Remove from cart' : 'Add to cart'
+
+    useEffect(() => {
+        dispatch(getTotal())
+    }, [dispatch])
+
+    const handleAddProduct = (product: ProductDocument) =>{
+        dispatch(addToCart(product))
+        dispatch(getTotal())
+    }
+    const handleRemoveProduct = (product: ProductDocument) =>{
+        dispatch(removeFromCart(product))
+        dispatch(getTotal())
+    }
 
     return (
         <>
@@ -35,7 +47,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
                     <FavoriteIcon />
                 </ProductFavButton>
                 {
-                    (showOptions) && <ProductAddToCart onClick={() => addToCartText === 'Add to cart' ? dispatch(incrementProduct(product)) : dispatch(deleteProduct(product))} show={showOptions} variant="contained">
+                    (showOptions) && <ProductAddToCart onClick={() => addToCartText === 'Add to cart' ? handleAddProduct(product) : handleRemoveProduct(product)} show={showOptions} variant="contained">
                         {addToCartText}
                     </ProductAddToCart>
                 }
