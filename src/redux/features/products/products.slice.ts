@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Cart, CartItem } from '../../interfaces/cart/cart.interface';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { Cart } from '../../interfaces/cart/cart.interface';
 import { ProductDocument } from '../../interfaces/products/product.interface';
 import productService from '../../services/products/products.service';
 
@@ -104,7 +104,7 @@ export const productSlice = createSlice({
             let sorted = sortProductPrices(previousState, action.payload)
             console.log(sorted)
             state.productsFilter = sorted
-            state.filter ={
+            state.filter = {
                 ...state.filter,
                 order: action.payload.order
             }

@@ -7,12 +7,14 @@ import { useUIContext } from '../context/ui'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import { addToCart, clearCart, decreaseCart, getTotal } from '../../redux/features/cart/cart.slice'
+import { useNavigate } from 'react-router-dom'
 
 
 const Cart: React.FC = (): JSX.Element => {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('md'))
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const { cartTotalAmount, cartTotalQuantity } = useAppSelector(state => state.cart)
     const { showCart, setShowCart } = useUIContext()
     const { cartItems } = useAppSelector(state => state.cart)
@@ -90,11 +92,22 @@ const Cart: React.FC = (): JSX.Element => {
                     flexDirection={'column'}
                     alignItems='center'
                 >
-                    <Typography variant={matches ? 'h5' : 'h3'} color={Colors.black}>
+                    <Typography variant={matches ? 'h5' : 'h4'} color={Colors.black}>
                         Your cart is empty! ☹
                     </Typography>
                 </Box>)}
-            <Button onClick={() => setShowCart(false)}>Close</Button>
+            <Box display='flex' alignItems='center' flexDirection='column' >
+                <Button
+                    sx={{ m: 2 }}
+                    variant="contained"
+                    color="secondary" onClick={() => {
+                        navigate('/shop')
+                        setShowCart(false)
+                        }}>
+                    ⟵ Go to Shop
+                </Button>
+                <Button variant="contained" onClick={() => setShowCart(false)}>Close</Button>
+            </Box>
         </Drawer>
     )
 }

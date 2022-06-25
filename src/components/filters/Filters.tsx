@@ -1,7 +1,7 @@
-import { Button, FormControl, InputLabel, MenuItem, NativeSelect, Select, useMediaQuery, useTheme } from '@mui/material'
+import { Button, NativeSelect, useMediaQuery, useTheme } from '@mui/material'
 import { Container } from '@mui/system'
 import React, { useState } from 'react'
-import { filteredProducts, FilterState, getProducts, orderedProducts } from '../../redux/features/products/products.slice'
+import { filteredProducts, getProducts, orderedProducts } from '../../redux/features/products/products.slice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { ProductDocument } from '../../redux/interfaces/products/product.interface'
 

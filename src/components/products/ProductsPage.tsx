@@ -2,6 +2,7 @@ import { Container, Grid, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import React from 'react'
 import { ProductDocument } from '../../redux/interfaces/products/product.interface'
+import Loader from '../loader/Loader'
 import SingleProduct from './SingleProduct'
 import SingleProductDesktop from './SingleProductDesktop'
 
