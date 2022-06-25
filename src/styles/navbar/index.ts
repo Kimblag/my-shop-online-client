@@ -2,13 +2,18 @@ import { Box, IconButton, List, Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { Colors } from "../theme"
 import '@fontsource/montez'
+import { rgba } from "polished";
 
 export const NavbarContainer = styled(Box)(() => ({
     display: "flex",
     marginTop: 4,
     justifyContent: "center",
     alignItems: "center",
-    padding: '2px 8px'
+    padding: '2px 8px',
+    position: 'sticky',
+    top: '0px',
+    zIndex: 3,
+    background: rgba(255,255,255,0.8)
 }));
 
 
