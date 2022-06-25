@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, Slide, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Dialog, DialogContent, DialogTitle, IconButton, Slide, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React from 'react'
 import { Colors } from '../../styles/theme'
 import CloseIcon from '@mui/icons-material/Close'

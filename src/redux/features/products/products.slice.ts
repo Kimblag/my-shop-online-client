@@ -8,48 +8,36 @@ interface AsyncState {
     isSuccess: boolean;
     isError: boolean;
 }
-interface ProductState extends AsyncState {
+export interface ProductState extends AsyncState {
     products: ProductDocument[]
     cart: Cart
+    productsFilter: ProductDocument[]
 }
 
-const initialState: ProductState = {
-    products: [],
-    cart: [],
+export interface FilterState extends ProductState {
+    filter: {
+        brand: string,
+        category: string,
+        order: string
+    }
+}
+
+const initialState: FilterState = {
     isLoading: false,
     isSuccess: false,
     isError: false,
+    products: [],
+    productsFilter: [],
+    filter: {
+        brand: 'AllBrands',
+        category: 'AllCategories',
+        order: 'All'
+    },
+    cart: [],
 }
 
-const modifyQuantityByOne = (cart: Cart, selectedProduct: ProductDocument, modificationType: 'INCREMENT' | 'DECREMENT') => {
-    const previousCart = [...cart]
-    const productInCart = previousCart.find(product => product._id === selectedProduct._id)
-    let newCart = [];
-    if (!productInCart) {
-        previousCart.push({ ...selectedProduct, quantity: 1 })
-        newCart = previousCart
-    } else {
-        const filteredCart = previousCart.filter(item => item._id !== productInCart._id)
-        const modification = modificationType === 'INCREMENT' ? 1 : -1;
-        productInCart.quantity = productInCart.quantity + modification;
-        if (productInCart.quantity === 0) {
-            newCart = [...filteredCart]
-        } else {
-            newCart = [...filteredCart, productInCart]
-        }
-    }
-    return newCart
-}
-const removeAllCartItems = (cart: Cart, selectedProduct: ProductDocument, modificationType: 'DELETE_ALL') => {
-    const previousCart = [...cart]
-    const productInCart = previousCart.find(product => product._id === selectedProduct._id)
-    let newCart: CartItem[] = [];
-    if (productInCart) {
-        const filteredCart = previousCart.filter(item => item._id !== productInCart._id)
-        newCart = [...filteredCart]
-    }
-    return newCart
-}
+// type Filter = FilterState
+
 
 export const getProducts = createAsyncThunk('product', async () => {
     try {
@@ -59,23 +47,67 @@ export const getProducts = createAsyncThunk('product', async () => {
     }
 })
 
+const filterByBrand = (products: ProductDocument[], brand: string) => {
+    if (brand === 'AllBrands') {
+        return products
+    } else {
+        return products.filter((product: ProductDocument) => product.brand && product.brand.includes(brand))
+    }
+}
 
+const filterByCategories = (products: ProductDocument[], category: string) => {
+    if (category === 'AllCategories') {
+        return products
+    } else {
+        return products.filter((product: ProductDocument) => product.category && product.category.includes(category))
+    }
+}
+type filterType = {
+    brand: string
+    category: string
+    order: string
+}
+type orderType = {
+    order: string
+}
+const sortProductPrices = (array: ProductDocument[], payload: any) => {
+    console.log(payload)
+    if (payload === 'High') {
+        array.sort((a: ProductDocument, b: ProductDocument) => b.price - a.price)
+    }
+    if (payload === 'Lower') {
+        array.sort((a: ProductDocument, b: ProductDocument) => a.price - b.price)
+    }
+    return array
+}
 
 export const productSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        incrementProduct: (state: { cart: Cart; }, action: PayloadAction<ProductDocument>) => {
-            const modifiedCart = modifyQuantityByOne(state.cart, action.payload, 'INCREMENT')
-            state.cart = modifiedCart
+        filteredProducts(state: FilterState, action: { payload: filterType }) {
+            console.log(action.payload)
+            let productsFilterByBrand = filterByBrand(state.products, action.payload.brand)
+            let productsFilterByCategory = filterByCategories(productsFilterByBrand, action.payload.category)
+            let sorted = sortProductPrices(productsFilterByCategory, state.filter.order)
+            state.productsFilter = sorted
+            state.filter = {
+                ...state.filter,
+                brand: action.payload.brand,
+                category: action.payload.category,
+                order: action.payload.order
+            }
         },
-        decrementProduct: (state: { cart: Cart; }, action: PayloadAction<ProductDocument>) => {
-            const modifiedCart = modifyQuantityByOne(state.cart, action.payload, 'DECREMENT')
-            state.cart = modifiedCart
-        },
-        deleteProduct: (state: {cart: Cart}, action: PayloadAction<ProductDocument> ) => {
-            const modifiedCart = removeAllCartItems(state.cart, action.payload, 'DELETE_ALL')
-            state.cart = modifiedCart
+        orderedProducts(state: FilterState, action: { payload: orderType }) {
+            console.log(action.payload)
+            const previousState = state.productsFilter
+            let sorted = sortProductPrices(previousState, action.payload)
+            console.log(sorted)
+            state.productsFilter = sorted
+            state.filter ={
+                ...state.filter,
+                order: action.payload.order
+            }
         }
     },
     extraReducers: (builder) => {
@@ -87,14 +119,21 @@ export const productSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.products = action.payload?.data || []
+                state.productsFilter = action.payload?.data || []
+                state.filter = {
+                    brand: 'AllBrands',
+                    category: 'AllCategories',
+                    order: 'All'
+                }
             })
             .addCase(getProducts.rejected, (state) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.products = []
+                state.productsFilter = []
             })
     }
 })
 
-export const { incrementProduct, decrementProduct, deleteProduct } = productSlice.actions;
+export const { filteredProducts, orderedProducts } = productSlice.actions;
 export default productSlice.reducer

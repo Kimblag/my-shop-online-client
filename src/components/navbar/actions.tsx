@@ -15,14 +15,14 @@ type ActionsProps = {
 const Actions: React.FC<ActionsProps> = ({ matches }): JSX.Element => {
   const Component = matches ? ActionIconsContainerMobile : ActionIconsContainerDesktop
   const { setShowCart } = useUIContext()
-  const { cart } = useAppSelector(state => state.products)
+  const { cartItems } = useAppSelector(state => state.cart)
 
   return (
     <Component>
       <MyList type='row'>
         <ListItemButton sx={{ justifyContent: 'center' }} onClick={() => setShowCart(true)}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }}>
-            <Badge badgeContent={cart.length} color="secondary">
+            <Badge badgeContent={cartItems.length} color="secondary">
               <ShoppingCartIcon />
             </Badge>
           </ListItemIcon>
