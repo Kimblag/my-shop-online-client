@@ -36,16 +36,31 @@ export const categories = [
         id: 1,
         img: laptops,
         title: 'NOTEBOOKS',
+        filter: {
+            brand: 'AllBrands',
+            category: 'Notebooks',
+            order: 'All'
+        }
     },
     {
         id: 2,
         img: smartphones,
         title: 'SMARTPHONES',
+        filter: {
+            brand: 'AllBrands',
+            category: 'Smartphones',
+            order: 'All'
+        }
     },
     {
         id: 3,
         img: headphones,
         title: 'HEADPHONES',
+        filter: {
+            brand: 'AllBrands',
+            category: 'Headphones',
+            order: 'All'
+        }
     },
 ]
 
