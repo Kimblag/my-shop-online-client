@@ -2,12 +2,14 @@ import { Action, configureStore, getDefaultMiddleware, ThunkAction } from '@redu
 import productReducer from '../redux/features/products/products.slice'
 import cartSlice from './features/cart/cart.slice'
 import authReducer from './features/auth/auth.slice'
+// import userReducer from './features/user/user.slice'
 
 const store = configureStore({
     reducer: {
         products: productReducer,
         cart: cartSlice,
-        auth: authReducer
+        auth: authReducer,
+        // user: userReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,

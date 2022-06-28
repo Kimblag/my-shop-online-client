@@ -12,10 +12,15 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch } from '../../redux/hooks';
-import { logout, reset } from '../../redux/features/auth/auth.slice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { IUserType, logout, reset } from '../../redux/features/auth/auth.slice';
+import { useNavigate } from 'react-router-dom';
 
-const AccountMenu = () => {
+
+type MenuProps = {
+    user: IUserType | null
+}
+
+const AccountMenu: React.FC<MenuProps> = ({ user }): JSX.Element => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -31,11 +36,14 @@ const AccountMenu = () => {
         dispatch(reset())
         navigate('/')
     }
+
+    const firstLetterName = user?.data ? user.data.name.charAt(0) : ''
+
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-                <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+                {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
+                <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
@@ -45,7 +53,7 @@ const AccountMenu = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }}>{firstLetterName}</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>

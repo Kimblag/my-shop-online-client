@@ -10,7 +10,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Avatar, Container, CssBaseline, Grid, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Avatar, Container, CssBaseline, Grid, Snackbar, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { Colors } from '../../styles/theme';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -48,6 +48,9 @@ type Props = {
     close: () => void
     openLogin: () => void
 }
+// type useStateType = {
+//     error: 
+// }
 
 const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
     const theme = useTheme()
@@ -59,15 +62,16 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
     const [passwordHelper, setPasswordHelper] = useState<boolean>(false)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const { isError, isLoading, isSuccess, response } = useAppSelector(state => state.auth)
+    const { isError, isLoading, isSuccess, response, errorMessageRegister } = useAppSelector(state => state.auth)
+    const [error, setError] = useState<any>('')
 
     useEffect(() => {
         if(isError){
-            toast.error('An error ocurred')
+            setError(errorMessageRegister)
+            console.log(error)
         }
-        if(isSuccess && response?.data.message === 'User registered successfully'){
+        if (isSuccess) {
             close()
-            toast.success('Succesfully registered! You can now verify your email for activate account!',{ toastId: 'registered'})
             navigate('/')
         }
         dispatch(reset())
@@ -89,6 +93,11 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
             password: formValues.password
         }
         dispatch(register(userData))
+        setFormValues(initialValues)
+        setFormErrors({ name: '', lastname: '', email: '', password: '', confirmPassword: '' })
+        setError('')
+        if(!errorMessageRegister) close()
+        toast.success('Succesfully registered! You can now verify your email for activate account!', { toastId: 'registered' })
     }
 
     useEffect(() => {
@@ -136,9 +145,10 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
         openLogin()
     }
 
-    if(isLoading){
+    if (isLoading) {
         return <Loader />
     }
+
 
     return (
         <div>
@@ -270,6 +280,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                             />
                             <Box>
                                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.confirmPassword}</Typography>
+                               { error ? (<Typography color={'red'} paragraph variant='subtitle2'>{error}</Typography>) : null}
                             </Box>
 
 
@@ -283,11 +294,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                                 Sign Up
                             </Button>
                             <Grid container sx={{ display: 'flex', flexDirection: matches ? 'column' : 'row' }}>
-                                {/* <Grid item xs sx={{p: 1}}>
-                  <Link to="#"  style={{textDecoration: 'none', color: Colors.secondary}}>
-                    Forgot password?
-                  </Link>
-                </Grid> */}
+                               
                                 <Grid item sx={{ p: 1 }}>
                                     <span onClick={handleOpenLogin} style={{ textDecoration: 'none', color: Colors.secondary, cursor: 'pointer' }} >
                                         {"Already have an account? Sign In"}

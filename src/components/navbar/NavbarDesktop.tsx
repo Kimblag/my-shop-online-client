@@ -5,14 +5,16 @@ import SearchIcon from '@mui/icons-material/Search'
 import Actions from './actions'
 import { useUIContext } from '../context/ui'
 import { Link } from 'react-router-dom'
+import { IUserType } from '../../redux/features/auth/auth.slice'
 
 type NavbarProps = {
     matches?: boolean
     open: () => void
     close: () => void
+    user: IUserType | null
 }
 
-const NavbarDesktop: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Element => {
+const NavbarDesktop: React.FC<NavbarProps> = ({ user, matches, open, close }): JSX.Element => {
     const { setShowSearchBox } = useUIContext()
     return (
         <NavbarContainer>
@@ -23,20 +25,14 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Ele
                         <ListItemText primary="Home" />
                     </Link>
                 </ListItem>
+    
                 <ListItem>
-
-                    <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
-                        <ListItemText primary="Categories" />
-                    </Link>
-                </ListItem>
-                <ListItem>
-
                     <Link to='/shop' style={{textDecoration: 'none', color: 'inherit'}}>
                         <ListItemText primary="Products" />
                     </Link>
                 </ListItem>
-                <ListItem>
 
+                <ListItem>
                     <Link to='/contact' style={{textDecoration: 'none', color: 'inherit'}}>
                         <ListItemText primary="Contact" />
                     </Link>
@@ -47,7 +43,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Ele
                     </ListItemIcon>
                 </ListItemButton>
             </MyList>
-            <Actions matches={matches} open={open} close={close} />
+            <Actions user={user} matches={matches} open={open} close={close} />
         </NavbarContainer>
     )
 }

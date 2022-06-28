@@ -5,14 +5,16 @@ import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
 import Actions from './actions'
 import { useUIContext } from '../context/ui'
+import { IUserType } from '../../redux/features/auth/auth.slice'
 
 type NavbarProps = {
   matches?: boolean
   open: () => void
   close: () => void
+  user: IUserType | null
 }
 
-const NavbarMobile: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Element => {
+const NavbarMobile: React.FC<NavbarProps> = ({ user, matches, open, close }): JSX.Element => {
   const { setDrawerOpen, setShowSearchBox } = useUIContext()
   return (
     <NavbarContainer>
@@ -25,7 +27,7 @@ const NavbarMobile: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Elem
       <IconButton onClick={() => setShowSearchBox(true)}>
         <SearchIcon />
       </IconButton>
-      <Actions matches={matches} open={open} close={close} />
+      <Actions user={user} matches={matches} open={open} close={close} />
     </NavbarContainer>
   )
 }

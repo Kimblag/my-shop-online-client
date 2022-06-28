@@ -13,6 +13,7 @@ import Promotions from '../components/promotions/Promotions'
 import SearchBox from '../components/search/SearchBox'
 import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
+import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
 import { getProducts } from '../redux/features/products/products.slice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { Colors } from '../styles/theme'
@@ -23,6 +24,27 @@ const Home: React.FC = (): JSX.Element => {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+  const { user } = useAppSelector(state => state.auth)
+
+  type userDecodeType = {
+    data: {
+      exp: number
+      iat: number
+      id: string
+      isAdmin: boolean
+    }
+  }
+  const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
+  const userId: string = userDecode?.data?.id
+  
+
+  // useEffect(() => {
+  //   dispatch(getUserInfo(userId))
+  //   dispatch(reset())
+  // }, [dispatch, userId])
+
+  //TODO validar si esta el usuario en local storage y despachar la action.
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,7 +60,7 @@ const Home: React.FC = (): JSX.Element => {
   const handleCloseRegister = () => {
     setOpenRegister(false);
   };
-  
+
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
@@ -49,32 +71,32 @@ const Home: React.FC = (): JSX.Element => {
 
   return (
     <>
-      {loading 
-      ? (
-        <div style={{ height: '100vh' }}>
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <Navbar open={handleClickOpen} close={handleClose} />
-          <Banner />
-          <Promotions />
-          <Box display="flex" justifyContent={"center"} sx={{ p: 4 }}>
-            <Typography variant='h4'>Our Products</Typography>
-          </Box>
-          <Products products={products} />
-          <Divider variant='middle' sx={{ m: 3, borderColor: Colors.secondary }} />
-          <Box display="flex" justifyContent={"center"} sx={{ p: 2 }}>
-            <Typography variant='h4'>Our Categories</Typography>
-          </Box>
-          <Categories isLoading={loading} />
-          <Footer />
-          <AppDrawer />
-          <Cart />
-          <SearchBox />
-          <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
-          <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister}/>
-        </>)}
+      {loading
+        ? (
+          <div style={{ height: '100vh' }}>
+            <Loader />
+          </div>
+        ) : (
+          <>
+            <Navbar user={user} open={handleClickOpen} close={handleClose} />
+            <Banner />
+            <Promotions />
+            <Box display="flex" justifyContent={"center"} sx={{ p: 4 }}>
+              <Typography variant='h4'>Our Products</Typography>
+            </Box>
+            <Products products={products} />
+            <Divider variant='middle' sx={{ m: 3, borderColor: Colors.secondary }} />
+            <Box display="flex" justifyContent={"center"} sx={{ p: 2 }}>
+              <Typography variant='h4'>Our Categories</Typography>
+            </Box>
+            <Categories isLoading={loading} />
+            <Footer />
+            <AppDrawer />
+            <Cart />
+            <SearchBox />
+            <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
+            <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister} />
+          </>)}
     </>
   )
 }

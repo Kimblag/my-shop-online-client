@@ -1,6 +1,5 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-import { decode } from 'punycode'
 import { IResponse } from '../../features/auth/auth.slice'
 
 const API_URL = '/api/'
@@ -22,12 +21,11 @@ export type userInfo = {
 
 const register = async (userData: userData) => {
     const response = await axios.post<IResponse>(API_URL + 'register', userData)
-    console.log(response)
     return response.data
 }
 const login = async (userData: userLoginData) => {
-    const response = await axios.post<IResponse>(API_URL + 'signin', userData)
-    console.log(response)
+    console.log(userData)
+    let response = await axios.post<IResponse>(API_URL + 'signin', userData)
 
     var decoded: userInfo = jwtDecode(response.data.data.token || '')
     localStorage.setItem('user', JSON.stringify({ data: decoded }))
