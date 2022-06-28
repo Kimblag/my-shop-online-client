@@ -12,6 +12,7 @@ import Filters from '../components/filters/Filters'
 import Loader from '../components/loader/Loader'
 import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
+import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
 
 
 const Shop: React.FC = (): JSX.Element => {
@@ -21,6 +22,24 @@ const Shop: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+  const { user } = useAppSelector(state => state.auth)
+  console.log(user)
+
+  type userDecodeType = {
+    data: {
+      exp: number
+      iat: number
+      id: string
+      isAdmin: boolean
+    }
+  }
+
+  // useEffect(() => {
+  //   const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
+  //     const userId: string = userDecode?.data?.id
+  //     dispatch(getUserInfo(userId))
+  //     dispatch(reset())
+  // }, [dispatch])
 
 
   const handleClickOpen = () => {
@@ -69,7 +88,7 @@ const Shop: React.FC = (): JSX.Element => {
           )
           : (
             <>
-              <Navbar open={handleClickOpen} close={handleClose} />
+              <Navbar user={user} open={handleClickOpen} close={handleClose} />
               <Filters setCurrentPage={setCurrentPage} />
               <ProductsPage currentProducts={currentProducts} />
               <AppPagination currentPage={currentPage} totalProducts={totalProducts} pageSize={pageSize} handlePageChange={handlePageChange} />

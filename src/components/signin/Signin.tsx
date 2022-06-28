@@ -22,7 +22,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toast } from 'react-toastify';
-import { login, reset } from '../../redux/features/auth/auth.slice';
+import { getUserInfo, login, reset } from '../../redux/features/auth/auth.slice';
 import Loader from '../loader/Loader';
 
 function Copyright(props: any) {
@@ -63,18 +63,32 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { isError, isLoading, isSuccess, response } = useAppSelector(state => state.auth)
+  const { isError, isLoading, isSuccess, response, errorMessageLogin } = useAppSelector(state => state.auth)
+  const userState = useAppSelector(state => state.auth.user)
+  const [error, setError] = useState<any>('')
+
+  type userDecodeType = {
+    data: {
+      exp: number
+      iat: number
+      id: string
+      isAdmin: boolean
+    }
+  }
+
+
 
   useEffect(() => {
     if (isError) {
-      toast.error('An error ocurred')
+      setError(errorMessageLogin)
+      console.log(error)
     }
     if (isSuccess) {
       close()
       navigate('/')
+      dispatch(reset())
     }
-    dispatch(reset())
-  }, [response, close, isError, isSuccess, navigate, dispatch])
+  }, [response, userState, close, isSuccess, isError, navigate, dispatch])
 
   const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
     const { name, value } = e.target
@@ -112,7 +126,7 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     openRegister()
   }
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
     setFormErrors(validate(formValues))
     setIsSubmit(true)
@@ -120,7 +134,16 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
       email: formValues.email,
       password: formValues.password
     }
-    dispatch(login(userData))
+    await dispatch(login(userData))
+    const userDecode: userDecodeType = await JSON.parse(window.localStorage.getItem('user') || '{}')
+    if (userDecode) {
+      const userId: string = userDecode ? userDecode?.data?.id : ''
+      dispatch(getUserInfo(userId))
+      setFormValues(initialValues)
+      setFormErrors({ email: '', password: '' })
+      setError('') 
+   
+    }
   }
 
   if (isLoading) {
@@ -201,7 +224,11 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
               />
               <Box>
                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.password}</Typography>
+                {error ? (
+                <Typography variant='caption' color={'red'}>{error}</Typography>
+              ) : null}
               </Box>
+              
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
