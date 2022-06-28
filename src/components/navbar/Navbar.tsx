@@ -4,13 +4,17 @@ import React from 'react'
 import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 
-const Navbar = () => {
+type Props = {
+  open: () => void
+  close: () => void
+}
+const Navbar: React.FC<Props> = ({ open, close }) => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <>
-      {matches ? <NavbarMobile matches={matches} /> : <NavbarDesktop matches={matches} />}
+      {matches ? <NavbarMobile matches={matches} open={open} close={close} /> : <NavbarDesktop matches={matches} open={open} close={close} />}
     </>
   )
 }

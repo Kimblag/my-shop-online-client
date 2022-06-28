@@ -8,10 +8,12 @@ import { useUIContext } from '../context/ui'
 
 type NavbarProps = {
   matches?: boolean
+  open: () => void
+  close: () => void
 }
 
-const NavbarMobile: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
-  const {setDrawerOpen, setShowSearchBox} = useUIContext()
+const NavbarMobile: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Element => {
+  const { setDrawerOpen, setShowSearchBox } = useUIContext()
   return (
     <NavbarContainer>
       <IconButton onClick={() => setDrawerOpen(true)} >
@@ -21,9 +23,9 @@ const NavbarMobile: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
         My Shop
       </NavbarHeader>
       <IconButton onClick={() => setShowSearchBox(true)}>
-        <SearchIcon  />
+        <SearchIcon />
       </IconButton>
-      <Actions matches={matches} />
+      <Actions matches={matches} open={open} close={close} />
     </NavbarContainer>
   )
 }

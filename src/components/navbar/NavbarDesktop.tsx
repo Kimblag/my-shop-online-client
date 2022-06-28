@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom'
 
 type NavbarProps = {
     matches?: boolean
+    open: () => void
+    close: () => void
 }
 
-const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
+const NavbarDesktop: React.FC<NavbarProps> = ({ matches, open, close }): JSX.Element => {
     const { setShowSearchBox } = useUIContext()
     return (
         <NavbarContainer>
@@ -45,7 +47,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ matches }): JSX.Element => {
                     </ListItemIcon>
                 </ListItemButton>
             </MyList>
-            <Actions matches={matches} />
+            <Actions matches={matches} open={open} close={close} />
         </NavbarContainer>
     )
 }
