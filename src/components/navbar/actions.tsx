@@ -7,15 +7,20 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Colors } from '../../styles/theme'
 import { useUIContext } from '../context/ui'
 import { useAppSelector } from '../../redux/hooks'
+import AccountMenu from './AccountMenu'
 
 type ActionsProps = {
   matches?: boolean
+  open: () => void
+  close: () => void
 }
 
-const Actions: React.FC<ActionsProps> = ({ matches }): JSX.Element => {
+const Actions: React.FC<ActionsProps> = ({ matches, open, close }): JSX.Element => {
   const Component = matches ? ActionIconsContainerMobile : ActionIconsContainerDesktop
   const { setShowCart } = useUIContext()
   const { cartItems } = useAppSelector(state => state.cart)
+  const { response } = useAppSelector(state => state.auth)
+
 
   return (
     <Component>
@@ -34,11 +39,13 @@ const Actions: React.FC<ActionsProps> = ({ matches }): JSX.Element => {
           </ListItemIcon>
         </ListItemButton>
         <Divider orientation='vertical' flexItem />
-        <ListItemButton sx={{ justifyContent: 'center' }}>
+
+        {/* // TODO: CREATE AN USERSLICE TO STORE USER DATA AND GET USER INFO FROM BACKEND */}
+        { (<ListItemButton onClick={open} sx={{ justifyContent: 'center' }}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }}>
             <PersonIcon />
           </ListItemIcon>
-        </ListItemButton>
+        </ListItemButton>)}
       </MyList>
     </Component>
   )

@@ -1,11 +1,13 @@
 import { Action, configureStore, getDefaultMiddleware, ThunkAction } from '@reduxjs/toolkit'
 import productReducer from '../redux/features/products/products.slice'
 import cartSlice from './features/cart/cart.slice'
+import authReducer from './features/auth/auth.slice'
 
 const store = configureStore({
     reducer: {
         products: productReducer,
         cart: cartSlice,
+        auth: authReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,

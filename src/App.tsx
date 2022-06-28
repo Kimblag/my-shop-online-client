@@ -8,6 +8,7 @@ import theme from './styles/theme'
 import { UIContext } from './components/context/ui'
 import { Cart } from './redux/interfaces/cart/cart.interface'
 import { ToastContainer } from 'react-toastify';
+import Signin from './components/signin/Signin';
 
 const App: React.FC = (): JSX.Element => {
   const [drawerOpen, setDrawerOpen] = useState(false)

@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { getProducts } from '../redux/features/products/products.slice'
 import Filters from '../components/filters/Filters'
 import Loader from '../components/loader/Loader'
+import Signin from '../components/signin/Signin'
+import Signup from '../components/signup/Signup'
 
 
 const Shop: React.FC = (): JSX.Element => {
@@ -17,6 +19,24 @@ const Shop: React.FC = (): JSX.Element => {
   const { productsFilter, isSuccess } = useAppSelector(state => state.products)
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
+  const [open, setOpen] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpenRegister = () => {
+    setOpenRegister(true);
+  };
+
+  const handleCloseRegister = () => {
+    setOpenRegister(false);
+  };
 
 
   useEffect(() => {
@@ -49,7 +69,7 @@ const Shop: React.FC = (): JSX.Element => {
           )
           : (
             <>
-              <Navbar />
+              <Navbar open={handleClickOpen} close={handleClose} />
               <Filters setCurrentPage={setCurrentPage} />
               <ProductsPage currentProducts={currentProducts} />
               <AppPagination currentPage={currentPage} totalProducts={totalProducts} pageSize={pageSize} handlePageChange={handlePageChange} />
@@ -57,6 +77,8 @@ const Shop: React.FC = (): JSX.Element => {
               <AppDrawer />
               <Cart />
               <SearchBox />
+              <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
+              <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister}/>
             </>
           )
       }
