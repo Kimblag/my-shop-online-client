@@ -62,7 +62,7 @@ const Filters: React.FC<Props> = ({ setCurrentPage }): JSX.Element => {
                 <Button
                     variant="contained"
                     color="secondary" onClick={() => {
-                        dispatch(getProducts())
+                        dispatch(getProducts(null))
                         setCurrentPage(1)
                     }}>
                     Reset Filters

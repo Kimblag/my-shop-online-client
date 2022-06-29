@@ -3,7 +3,7 @@ import axios from 'axios'
 const API_URL = '/api/'
 
 export type userIdType = {
-    id: string
+    id: undefined | string
 }
 
 

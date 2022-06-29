@@ -26,22 +26,21 @@ const Home: React.FC = (): JSX.Element => {
   const [openRegister, setOpenRegister] = useState(false);
   const { user } = useAppSelector(state => state.auth)
 
-  type userDecodeType = {
-    data: {
+   type userDecodeType = {
+  
       exp: number
       iat: number
       id: string
       isAdmin: boolean
-    }
   }
   const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
-  const userId: string = userDecode?.data?.id
+  const userId: string = userDecode?.id
   
 
-  // useEffect(() => {
-  //   dispatch(getUserInfo(userId))
-  //   dispatch(reset())
-  // }, [dispatch, userId])
+  useEffect(() => {
+    dispatch(getUserInfo(userId))
+    dispatch(reset())
+  }, [dispatch, userId])
 
   //TODO validar si esta el usuario en local storage y despachar la action.
 
@@ -64,7 +63,7 @@ const Home: React.FC = (): JSX.Element => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      dispatch(getProducts())
+      dispatch(getProducts(null))
       setLoading(false)
     }, 1000);
   }, [dispatch])

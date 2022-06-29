@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AppDrawer from '../components/drawer/AppDrawer'
 import Footer from '../components/footer/Footer'
 import Navbar from '../components/navbar/Navbar'
@@ -13,33 +13,32 @@ import Loader from '../components/loader/Loader'
 import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
+import { Alert, AlertTitle, Stack } from '@mui/material'
+import { Container } from '@mui/system'
 
 
 const Shop: React.FC = (): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const { productsFilter, isSuccess } = useAppSelector(state => state.products)
+  const { productsFilter } = useAppSelector(state => state.products)
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const { user } = useAppSelector(state => state.auth)
-  console.log(user)
 
   type userDecodeType = {
-    data: {
-      exp: number
-      iat: number
-      id: string
-      isAdmin: boolean
-    }
+    exp: number
+    iat: number
+    id: string
+    isAdmin: boolean
   }
 
-  // useEffect(() => {
-  //   const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
-  //     const userId: string = userDecode?.data?.id
-  //     dispatch(getUserInfo(userId))
-  //     dispatch(reset())
-  // }, [dispatch])
+  useEffect(() => {
+    const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
+    const userId: string = userDecode?.id
+    dispatch(getUserInfo(userId))
+    dispatch(reset())
+  }, [dispatch])
 
 
   const handleClickOpen = () => {
@@ -61,7 +60,7 @@ const Shop: React.FC = (): JSX.Element => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      dispatch(getProducts())
+      dispatch(getProducts(null))
       setLoading(false)
     }, 1000);
   }, [dispatch])
@@ -90,14 +89,21 @@ const Shop: React.FC = (): JSX.Element => {
             <>
               <Navbar user={user} open={handleClickOpen} close={handleClose} />
               <Filters setCurrentPage={setCurrentPage} />
-              <ProductsPage currentProducts={currentProducts} />
+              {currentProducts.length > 0 ? <ProductsPage currentProducts={currentProducts} /> : (
+                <Container sx={{padding: '5rem', display: 'flex', justifyContent: 'center' }}>
+                  <Alert severity="info" sx={{width: '100%', fontSize: '1.5rem'}}>
+                    <AlertTitle>Oops!</AlertTitle>
+                    There are no products! <strong>☹</strong>
+                  </Alert>
+                </Container>
+              )}
               <AppPagination currentPage={currentPage} totalProducts={totalProducts} pageSize={pageSize} handlePageChange={handlePageChange} />
               <Footer />
               <AppDrawer />
               <Cart />
-              <SearchBox />
+              <SearchBox setCurrentPage={setCurrentPage} />
               <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
-              <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister}/>
+              <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister} />
             </>
           )
       }

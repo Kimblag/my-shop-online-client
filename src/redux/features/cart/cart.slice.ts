@@ -1,7 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Cart } from '../../interfaces/cart/cart.interface'
 import { toast } from 'react-toastify'
 import { ProductDocument } from '../../interfaces/products/product.interface';
+import cartService, { getUserCartProps } from '../../services/cart/cart.services';
+import { userIdType } from '../../services/auth/user.services';
 
 interface AsyncState {
     isLoading: boolean;
@@ -13,6 +15,12 @@ interface CartState extends AsyncState {
     cartItems: Cart
     cartTotalQuantity: number
     cartTotalAmount: number
+    userCart: {
+        loading: boolean
+        error: string
+        status: string,
+        data: []
+    }
 }
 
 const initialState: CartState = {
@@ -22,7 +30,22 @@ const initialState: CartState = {
     isError: false,
     cartTotalQuantity: 0,
     cartTotalAmount: 0,
+    userCart: {
+        loading: false,
+        error: '',
+        status: '',
+        data: []
+    }
 }
+
+export const getUserCart = createAsyncThunk('cart/getUserCart', async ({userId, token}: getUserCartProps, thunkAPI) => {
+    try {
+        return await cartService.getUserCart({userId, token})
+    } catch (error: any) {
+        const message = error.response.data.errors.message || error.response
+        return thunkAPI.rejectWithValue(message)
+    }
+})
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -73,6 +96,20 @@ const cartSlice = createSlice({
             state.cartTotalQuantity = quantity
             state.cartTotalAmount = total
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getUserCart.pending, (state) => ({
+                ...state
+            }))
+            .addCase(getUserCart.fulfilled, (state, action) => ({
+                ...state,
+                userCart: action.payload
+            }))
+            .addCase(getUserCart.rejected, (state, action) => ({
+                ...state,
+                error: action.payload
+            }))
     }
 })
 

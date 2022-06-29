@@ -9,6 +9,7 @@ import { UIContext } from './components/context/ui'
 import { Cart } from './redux/interfaces/cart/cart.interface'
 import { ToastContainer } from 'react-toastify';
 import Signin from './components/signin/Signin';
+import CheckoutScreen from './pages/CheckoutScreen';
 
 const App: React.FC = (): JSX.Element => {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -19,10 +20,11 @@ const App: React.FC = (): JSX.Element => {
   return (
     <ThemeProvider theme={theme}>
       <UIContext.Provider value={{ drawerOpen, setDrawerOpen, showSearchBox, setShowSearchBox, cart, setCart, showCart, setShowCart }} >
-        <ToastContainer />
+        <ToastContainer toastStyle={{zIndex: '9999'}}  />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />
+          <Route path='/checkout' element={<CheckoutScreen />} />
         </Routes>
       </UIContext.Provider>
     </ThemeProvider>

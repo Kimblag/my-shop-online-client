@@ -82,7 +82,7 @@ const Cart: React.FC = (): JSX.Element => {
                     </Paper>
 
                     <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
-                    <Button sx={{ mt: 4 }} variant='contained'>
+                    <Button sx={{ mt: 4 }} variant='contained' onClick={() => navigate('/checkout')}>
                         Proceed to payment
                     </Button>
                 </Box>)

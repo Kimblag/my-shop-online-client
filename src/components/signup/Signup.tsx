@@ -72,7 +72,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
         }
         if (isSuccess) {
             close()
-            navigate('/')
+            // navigate('/')
         }
         dispatch(reset())
     }, [response, close, isError, isSuccess, navigate, dispatch])
@@ -98,6 +98,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
         setError('')
         if(!errorMessageRegister) close()
         toast.success('Succesfully registered! You can now verify your email for activate account!', { toastId: 'registered' })
+        navigate('/')
     }
 
     useEffect(() => {

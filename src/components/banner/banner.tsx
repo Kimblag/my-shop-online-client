@@ -5,9 +5,11 @@ import headphones from '../../assets/slider/headphones.png'
 import React from 'react'
 import { Bannercontainer, BannerContent, BannerDescription, BannerImage, BannerShopButton, BannerTitle } from '../../styles/banner'
 import { Colors } from '../../styles/theme'
+import { useNavigate } from 'react-router-dom'
 
 const Banner: React.FC = (): JSX.Element => {
     const theme = useTheme()
+    const navigate = useNavigate()
     const matches = useMediaQuery(theme.breakpoints.down('md'))
 
     return (
@@ -25,7 +27,7 @@ const Banner: React.FC = (): JSX.Element => {
                     Ipsam reiciendis commodi pariatur ducimus impedit error fugit dolores sed quisquam, 
                     reprehenderit amet deleniti vitae quaerat animi dolorum provident eveniet qui! Itaque.
                 </BannerDescription>
-                <BannerShopButton color='secondary'>Show Now</BannerShopButton>
+                <BannerShopButton onClick={() => navigate('/shop')} color='secondary'>Show Now</BannerShopButton>
             </BannerContent>
         </Bannercontainer>
     )
