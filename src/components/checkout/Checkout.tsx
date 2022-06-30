@@ -16,7 +16,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { Colors } from '../../styles/theme';
-import { IUserType } from '../../redux/features/auth/auth.slice';
+import { getUserInfo, IUserType } from '../../redux/features/auth/auth.slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { clearCart, getTotal, getUserCart } from '../../redux/features/cart/cart.slice';
@@ -80,6 +80,7 @@ const Checkout: React.FC = () => {
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
+        dispatch(getUserInfo(user?.data.id as string))
     };
 
     const handleBack = () => {

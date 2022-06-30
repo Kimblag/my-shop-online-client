@@ -13,6 +13,7 @@ import Promotions from '../components/promotions/Promotions'
 import SearchBox from '../components/search/SearchBox'
 import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
+import WishList from '../components/wishList/WishList'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
 import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
 import { getProducts } from '../redux/features/products/products.slice'
@@ -99,6 +100,7 @@ const Home: React.FC = (): JSX.Element => {
             <SearchBox setCurrentPage={setCurrentPage} />
             <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
             <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister} />
+            <WishList />
           </>)}
     </>
   )

@@ -15,7 +15,7 @@ interface FavoriteState extends AsyncState {
             _id: string
             userId: string
             favorites: ProductDocument
-        }] | null
+        }] | []
     }
     isLoading: false,
     isSuccess: false,
@@ -29,7 +29,7 @@ interface FavoriteState extends AsyncState {
 const initialState: FavoriteState = {
     favoriteItems: {
         status: '',
-        data: null
+        data: []
     },
     isLoading: false,
     isSuccess: false,

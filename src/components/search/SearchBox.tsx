@@ -22,7 +22,6 @@ const SearchBox: React.FC<Props> = ({setCurrentPage}): JSX.Element => {
     e.preventDefault()
     setSearch(e.target.value)
   }
-  console.log(search)
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault()

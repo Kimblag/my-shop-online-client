@@ -12,6 +12,8 @@ export type GlobalContext = {
     setCart: (product: Cart) => void
     showCart: boolean;
     setShowCart: (show: boolean) => void;
+    showFavorites: boolean;
+    setShowFavorites: (show: boolean) => void;
 
 }
 export const UIContext = createContext<GlobalContext>({
@@ -22,7 +24,9 @@ export const UIContext = createContext<GlobalContext>({
     cart: [],
     setCart: () => { },
     showCart: false,
-    setShowCart: () => { }
+    setShowCart: () => { },
+    showFavorites: false,
+    setShowFavorites: () => { }
 
 });
 export const useUIContext = () => useContext(UIContext);

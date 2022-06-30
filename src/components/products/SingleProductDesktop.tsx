@@ -43,6 +43,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
         } else {
             setLocal(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product._id]);
 
     const handleAddProduct = (product: ProductDocument) => {
@@ -64,7 +65,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
             favoriteItems?.data.forEach(product => favorites.push(product.favorites._id))
         }
     }
-    console.log(favorites)
+
     const handleWishList = (e: { preventDefault: () => void }) => {
         if (!user?.data?.id) {
             e.preventDefault()

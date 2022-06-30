@@ -8,7 +8,6 @@ import theme from './styles/theme'
 import { UIContext } from './components/context/ui'
 import { Cart } from './redux/interfaces/cart/cart.interface'
 import { ToastContainer } from 'react-toastify';
-import Signin from './components/signin/Signin';
 import CheckoutScreen from './pages/CheckoutScreen';
 
 const App: React.FC = (): JSX.Element => {
@@ -16,11 +15,12 @@ const App: React.FC = (): JSX.Element => {
   const [showSearchBox, setShowSearchBox] = useState(false)
   const [cart, setCart] = useState([] as Cart)
   const [showCart, setShowCart] = useState(false)
- 
+  const [showFavorites, setShowFavorites] = useState(false)
+
   return (
     <ThemeProvider theme={theme}>
-      <UIContext.Provider value={{ drawerOpen, setDrawerOpen, showSearchBox, setShowSearchBox, cart, setCart, showCart, setShowCart }} >
-        <ToastContainer toastStyle={{zIndex: '9999'}}  />
+      <UIContext.Provider value={{ showFavorites, setShowFavorites, drawerOpen, setDrawerOpen, showSearchBox, setShowSearchBox, cart, setCart, showCart, setShowCart, }} >
+        <ToastContainer toastStyle={{ zIndex: '9999' }} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />

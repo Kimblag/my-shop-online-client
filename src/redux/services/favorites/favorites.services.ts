@@ -11,11 +11,10 @@ const getUserFavorite = async (userId: string | undefined) => {
     //     headers: {Authorization: `Bearer ${token}`}
     // }
     const response = await axios.get(API_URL + '/wishlist/' + userId)
-    console.log(response.data)
     return response.data
 }
 
-const addUserFavorite = async ({userId, product}: addProductProps) => {
+const addUserFavorite = async ({ userId, product }: addProductProps) => {
     // let config = {
     //     headers: {Authorization: `Bearer ${token}`}
     // }
@@ -23,7 +22,7 @@ const addUserFavorite = async ({userId, product}: addProductProps) => {
         userId: userId,
         favorites: product
     }
-    const response = await axios.post(API_URL + '/wishlist/add', favorite )
+    const response = await axios.post(API_URL + '/wishlist/add', favorite)
     return response.data
 }
 
@@ -32,7 +31,7 @@ const removeUserFavorite = async (productId: string) => {
     //     headers: {Authorization: `Bearer ${token}`}
     // }
     console.log(productId)
-    const response = await axios.put(API_URL + '/wishlist/remove', {id: productId} )
+    const response = await axios.put(API_URL + '/wishlist/remove', { id: productId })
     console.log(response.data)
     return response.data
 }
