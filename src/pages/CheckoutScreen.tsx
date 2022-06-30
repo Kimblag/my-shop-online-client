@@ -3,6 +3,7 @@ import Checkout from '../components/checkout/Checkout'
 import Footer from '../components/footer/Footer'
 import Navbar from '../components/navbar/Navbar'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
+import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 
 const CheckoutScreen = () => {
@@ -25,6 +26,7 @@ const CheckoutScreen = () => {
 
     useEffect(() => {
         dispatch(getUserInfo(userId))
+        dispatch(getUserFavorites(userId))
         dispatch(reset())
     }, [dispatch, userId])
   return (

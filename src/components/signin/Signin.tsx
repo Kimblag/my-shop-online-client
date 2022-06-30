@@ -85,7 +85,7 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
       // navigate('/')
       dispatch(reset())
     }
-  }, [response, userState, close, isSuccess, isError, navigate, dispatch])
+  }, [response, userState, close, isSuccess, isError, navigate, dispatch, errorMessageLogin, error])
 
   const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
     const { name, value } = e.target

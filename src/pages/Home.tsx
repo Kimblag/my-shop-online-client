@@ -14,6 +14,7 @@ import SearchBox from '../components/search/SearchBox'
 import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
+import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
 import { getProducts } from '../redux/features/products/products.slice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { Colors } from '../styles/theme'
@@ -25,6 +26,8 @@ const Home: React.FC = (): JSX.Element => {
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const { user } = useAppSelector(state => state.auth)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
 
    type userDecodeType = {
   
@@ -39,6 +42,7 @@ const Home: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(getUserInfo(userId))
+    dispatch(getUserFavorites(userId))
     dispatch(reset())
   }, [dispatch, userId])
 
@@ -92,7 +96,7 @@ const Home: React.FC = (): JSX.Element => {
             <Footer />
             <AppDrawer />
             <Cart />
-            <SearchBox />
+            <SearchBox setCurrentPage={setCurrentPage} />
             <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
             <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister} />
           </>)}

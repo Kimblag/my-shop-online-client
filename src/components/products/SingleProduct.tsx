@@ -3,7 +3,7 @@ import React from 'react'
 import { Product, ProductActionButton, ProductActionsWrapper, ProductAddToCart, ProductFavButton, ProductImage } from '../../styles/products'
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import FitScreenIcon from "@mui/icons-material/FitScreen"
-import ShareIcon from "@mui/icons-material/Share"
+// import ShareIcon from "@mui/icons-material/Share"
 import ProductMeta from './ProductMeta'
 import { useDialogModal } from '../../hooks/useDialogModal'
 import ProductDetail from '../productDetail/ProductDetail'
@@ -43,9 +43,9 @@ const SingleProduct: React.FC<Props> = ({ product, matches }): JSX.Element => {
                         <ProductFavButton isfav={1}>
                             <FavoriteIcon />
                         </ProductFavButton>
-                        <ProductActionButton>
+                        {/* <ProductActionButton>
                             <ShareIcon />
-                        </ProductActionButton>
+                        </ProductActionButton> */}
                         <ProductActionButton onClick={toggle}>
                             <FitScreenIcon />
                         </ProductActionButton>

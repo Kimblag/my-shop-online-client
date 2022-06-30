@@ -15,11 +15,12 @@ import Signup from '../components/signup/Signup'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
 import { Alert, AlertTitle, Stack } from '@mui/material'
 import { Container } from '@mui/system'
+import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
 
 
 const Shop: React.FC = (): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const { productsFilter } = useAppSelector(state => state.products)
+  const { productsFilter, products } = useAppSelector(state => state.products)
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false);
@@ -37,6 +38,7 @@ const Shop: React.FC = (): JSX.Element => {
     const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
     const userId: string = userDecode?.id
     dispatch(getUserInfo(userId))
+    dispatch(getUserFavorites(userId))
     dispatch(reset())
   }, [dispatch])
 
@@ -57,13 +59,25 @@ const Shop: React.FC = (): JSX.Element => {
   };
 
 
-  useEffect(() => {
-    setLoading(true)
+  // useEffect(() => {
+  //   setLoading(true)
+  //   setTimeout(() => {
+  //     dispatch(getProducts(null))
+  //     setLoading(false)
+  //   }, 1000);
+  // }, [dispatch])
+  const timer = (time: number) =>
     setTimeout(() => {
+      setLoading(false);
+    }, time);
+
+  useEffect(() => {
+    setLoading(true);
+    if (products.length === 0) {
       dispatch(getProducts(null))
-      setLoading(false)
-    }, 1000);
-  }, [dispatch])
+    }
+    timer(500)
+  }, [dispatch, products.length])
 
   const totalProducts = productsFilter.length
   const pageSize = 8
@@ -90,8 +104,8 @@ const Shop: React.FC = (): JSX.Element => {
               <Navbar user={user} open={handleClickOpen} close={handleClose} />
               <Filters setCurrentPage={setCurrentPage} />
               {currentProducts.length > 0 ? <ProductsPage currentProducts={currentProducts} /> : (
-                <Container sx={{padding: '5rem', display: 'flex', justifyContent: 'center' }}>
-                  <Alert severity="info" sx={{width: '100%', fontSize: '1.5rem'}}>
+                <Container sx={{ padding: '5rem', display: 'flex', justifyContent: 'center' }}>
+                  <Alert severity="info" sx={{ width: '100%', fontSize: '1.5rem' }}>
                     <AlertTitle>Oops!</AlertTitle>
                     There are no products! <strong>☹</strong>
                   </Alert>
