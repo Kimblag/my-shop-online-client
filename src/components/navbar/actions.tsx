@@ -19,9 +19,9 @@ type ActionsProps = {
 
 const Actions: React.FC<ActionsProps> = ({ matches, open, close, user }): JSX.Element => {
   const Component = matches ? ActionIconsContainerMobile : ActionIconsContainerDesktop
-  const { setShowCart } = useUIContext()
+  const { setShowCart, setShowFavorites } = useUIContext()
   const { cartItems } = useAppSelector(state => state.cart)
-
+  const { favoriteItems } = useAppSelector(state => state.wishlist)
   return (
     <Component>
       <MyList type='row'>
@@ -33,21 +33,22 @@ const Actions: React.FC<ActionsProps> = ({ matches, open, close, user }): JSX.El
           </ListItemIcon>
         </ListItemButton>
         <Divider orientation='vertical' flexItem />
-        <ListItemButton sx={{ justifyContent: 'center' }}>
+        <ListItemButton sx={{ justifyContent: 'center' }} onClick={() => setShowFavorites(true)}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }}>
-            <FavoriteIcon />
+            <Badge badgeContent={favoriteItems?.data?.length} color="secondary" >
+              <FavoriteIcon />
+            </Badge>
           </ListItemIcon>
         </ListItemButton>
         <Divider orientation='vertical' flexItem />
 
-        {/* // TODO: CREATE AN USERSLICE TO STORE USER DATA AND GET USER INFO FROM BACKEND */}
         {!user ? (<ListItemButton onClick={open} sx={{ justifyContent: 'center' }}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }}>
             <PersonIcon />
           </ListItemIcon>
         </ListItemButton>)
           : (
-            <ListItemButton>
+            <ListItemButton sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }} >
               <AccountMenu user={user} />
             </ListItemButton>
           )}

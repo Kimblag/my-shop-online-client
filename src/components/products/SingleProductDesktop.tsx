@@ -43,6 +43,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
         } else {
             setLocal(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product._id]);
 
     const handleAddProduct = (product: ProductDocument) => {
@@ -53,7 +54,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
         dispatch(removeFromCart(product))
         dispatch(getTotal())
     }
-    let favorites = []
+    let favorites: Array<string> = []
     let userId = user?.data?.id
     // const handleGetFavorites = (userId: string) => {
     //     dispatch(getUserFavorites(userId))
@@ -64,7 +65,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
             favoriteItems?.data.forEach(product => favorites.push(product.favorites._id))
         }
     }
-    console.log(favorites)
+
     const handleWishList = (e: { preventDefault: () => void }) => {
         if (!user?.data?.id) {
             e.preventDefault()
@@ -81,10 +82,10 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
             if (favorites.length !== 0 && favorites.includes(product._id)) {
                 e.preventDefault()
                 //TODO agregar delete action
-                let findId = favoriteItems.data.find(ele => ele.favorites._id === product._id)
-                dispatch(removeProductFavorites(findId._id))
+                let findId = favoriteItems?.data?.find(ele => ele.favorites._id === product._id)
+                dispatch(removeProductFavorites(findId?._id as string))
                 setTimeout(() => {
-                    dispatch(getUserFavorites(userId))
+                    dispatch(getUserFavorites(userId as string))
                 }, 800)
                 setLocal(false)
             } else {

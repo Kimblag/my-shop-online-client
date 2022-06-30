@@ -16,6 +16,7 @@ import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
 import { Alert, AlertTitle, Stack } from '@mui/material'
 import { Container } from '@mui/system'
 import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
+import WishList from '../components/wishList/WishList'
 
 
 const Shop: React.FC = (): JSX.Element => {
@@ -118,6 +119,7 @@ const Shop: React.FC = (): JSX.Element => {
               <SearchBox setCurrentPage={setCurrentPage} />
               <Signin open={open} close={handleClose} openRegister={handleOpenRegister} />
               <Signup openLogin={handleClickOpen} open={openRegister} close={handleCloseRegister} />
+              <WishList />
             </>
           )
       }

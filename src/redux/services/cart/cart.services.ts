@@ -4,7 +4,7 @@ import { userIdType } from '../auth/user.services'
 
 export type getUserCartProps = {
     userId: string | undefined,
-    token: IResponse
+    token: IResponse | null
 }
 const API_URL = '/api/'
 
