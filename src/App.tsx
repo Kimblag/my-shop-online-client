@@ -9,6 +9,7 @@ import { UIContext } from './components/context/ui'
 import { Cart } from './redux/interfaces/cart/cart.interface'
 import { ToastContainer } from 'react-toastify';
 import CheckoutScreen from './pages/CheckoutScreen';
+import Profile from './pages/Profile';
 
 const App: React.FC = (): JSX.Element => {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -25,6 +26,7 @@ const App: React.FC = (): JSX.Element => {
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />
           <Route path='/checkout' element={<CheckoutScreen />} />
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </UIContext.Provider>
     </ThemeProvider>

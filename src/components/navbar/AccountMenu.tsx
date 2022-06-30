@@ -92,7 +92,7 @@ const AccountMenu: React.FC<MenuProps> = ({ user }): JSX.Element => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
+                <MenuItem onClick={() => navigate('/profile')}>
                     <Avatar /> Profile
                 </MenuItem>
                 <Divider />

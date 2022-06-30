@@ -9,8 +9,8 @@ import { IUserType } from '../../redux/features/auth/auth.slice'
 
 type NavbarProps = {
     matches?: boolean
-    open: () => void
-    close: () => void
+    open?: () => void | undefined
+    close?: () => void | undefined
     user: IUserType | null
 }
 

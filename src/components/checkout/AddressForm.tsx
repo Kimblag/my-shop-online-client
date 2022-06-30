@@ -13,7 +13,7 @@ import { Colors } from '../../styles/theme';
 
 export default function AddressForm() {
 
-    const { user, response, responseEncode } = useAppSelector(state => state.auth)
+    const { user, responseEncode } = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
     const [input, setInput] = useState({
         name: '',
@@ -25,13 +25,12 @@ export default function AddressForm() {
         city: "",
         country: "",
     })
-    type userDecodeType = {
 
+    type userDecodeType = {
         exp: number
         iat: number
         id: string
         isAdmin: boolean
-
     }
     const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
     const userId: string = userDecode?.id
@@ -203,7 +202,7 @@ export default function AddressForm() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Button variant='contained' sx={{backgroundColor: Colors.secondary}} onClick={(e) => handleOnSubmit(e)}>
+                    <Button variant='contained' sx={{ backgroundColor: Colors.secondary }} onClick={(e) => handleOnSubmit(e)}>
                         Save
                     </Button>
                 </Grid>
