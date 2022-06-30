@@ -41,14 +41,16 @@ const Actions: React.FC<ActionsProps> = ({ matches, open, close, user }): JSX.El
         <Divider orientation='vertical' flexItem />
 
         {/* // TODO: CREATE AN USERSLICE TO STORE USER DATA AND GET USER INFO FROM BACKEND */}
-        { !user ? (<ListItemButton onClick={open} sx={{ justifyContent: 'center' }}>
+        {!user ? (<ListItemButton onClick={open} sx={{ justifyContent: 'center' }}>
           <ListItemIcon sx={{ display: 'flex', justifyContent: "center", color: matches ? Colors.secondary : '' }}>
             <PersonIcon />
           </ListItemIcon>
         </ListItemButton>)
-        : (
-          <AccountMenu user={user} />
-        )}
+          : (
+            <ListItemButton>
+              <AccountMenu user={user} />
+            </ListItemButton>
+          )}
       </MyList>
     </Component>
   )

@@ -68,15 +68,12 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   const [error, setError] = useState<any>('')
 
   type userDecodeType = {
-    data: {
       exp: number
       iat: number
       id: string
       isAdmin: boolean
-    }
+   
   }
-
-
 
   useEffect(() => {
     if (isError) {
@@ -85,10 +82,10 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     }
     if (isSuccess) {
       close()
-      navigate('/')
+      // navigate('/')
       dispatch(reset())
     }
-  }, [response, userState, close, isSuccess, isError, navigate, dispatch])
+  }, [response, userState, close, isSuccess, isError, navigate, dispatch, errorMessageLogin, error])
 
   const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
     const { name, value } = e.target
@@ -137,11 +134,12 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     await dispatch(login(userData))
     const userDecode: userDecodeType = await JSON.parse(window.localStorage.getItem('user') || '{}')
     if (userDecode) {
-      const userId: string = userDecode ? userDecode?.data?.id : ''
+      const userId: string = userDecode ? userDecode?.id : ''
       dispatch(getUserInfo(userId))
       setFormValues(initialValues)
       setFormErrors({ email: '', password: '' })
       setError('') 
+      navigate('/')
    
     }
   }

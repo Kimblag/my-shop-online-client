@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify';
 import { Cart } from '../../interfaces/cart/cart.interface';
 import { ProductDocument } from '../../interfaces/products/product.interface';
-import productService from '../../services/products/products.service';
+import productService, { Props } from '../../services/products/products.service';
 
 interface AsyncState {
     isLoading: boolean;
@@ -36,13 +37,15 @@ const initialState: FilterState = {
     cart: [],
 }
 
-// type Filter = FilterState
 
-
-export const getProducts = createAsyncThunk('product', async () => {
+export const getProducts = createAsyncThunk('product', async (query: Props) => {
     try {
-        return await productService.getProducts();
-    } catch (error) {
+        return await productService.getProducts(query);
+    } catch (error: any) {
+        toast.warn(error.response.data.message, {
+            toastId: 'errorGet', autoClose: 2000,
+            position: toast.POSITION.TOP_CENTER,
+        })
         console.error('Error: ', error)
     }
 })

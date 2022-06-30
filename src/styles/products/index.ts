@@ -30,7 +30,7 @@ export const ProductActionButton = styled(IconButton)(() => ({
 }))
 
 export const ProductFavButton = styled(ProductActionButton)(({ isfav, theme }: { isfav: any, theme?: Theme }) => ({
-    color: isfav ? Colors.secondary : Colors.light,
+    color: isfav ? Colors.secondary : Colors.primary,
     [theme!.breakpoints.up('md')]: {
         position: 'absolute',
         right: '0',

@@ -11,7 +11,7 @@ export const SearchBoxContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 99999,
+    zIndex: 999,
     opacity: 0.9,
 }))
 

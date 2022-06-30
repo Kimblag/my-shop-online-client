@@ -16,16 +16,10 @@ const AppDrawer: React.FC = (): JSX.Element => {
       {drawerOpen && <DrawerCloseButton onClick={() => setDrawerOpen(false)}><CloseIcon sx={{ fontSize: '2.5rem', color: lighten(0.09, Colors.secondary), }} /></DrawerCloseButton>}
 
       <Drawer open={drawerOpen}>
-        <List>
+        <List sx={{mt: 5}}>
           <Link onClick={() => setDrawerOpen(false)} to='/' style={{ textDecoration: 'none', color: "inherit" }}>
             <ListItemButton>
               <ListItemText>Home</ListItemText>
-            </ListItemButton>
-          </Link>
-          <Divider variant="middle" />
-          <Link onClick={() => setDrawerOpen(false)} to='/categories' style={{ textDecoration: 'none', color: "inherit" }}>
-            <ListItemButton>
-              <ListItemText>Categories</ListItemText>
             </ListItemButton>
           </Link>
           <Divider variant="middle" />

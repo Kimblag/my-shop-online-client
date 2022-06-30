@@ -95,9 +95,6 @@ const AccountMenu: React.FC<MenuProps> = ({ user }): JSX.Element => {
                 <MenuItem>
                     <Avatar /> Profile
                 </MenuItem>
-                <MenuItem>
-                    <Avatar /> My account
-                </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>

@@ -16,6 +16,21 @@ export interface IUser {
     lastname: string
     email: string
     isVerified: boolean
+    id: string
+    address: {
+        country: string
+        city: string
+        street: string
+        zip: string
+        province: string
+    }
+    shippingAddress: {
+        country: string
+        city: string
+        street: string
+        zip: string
+        province: string
+    }
 }
 export type IUserType = {
     data: IUser
@@ -24,6 +39,7 @@ export type IUserType = {
 
 interface AuthState {
     response: IResponse | null,
+    responseEncode: IResponse | null
     errorMessageLogin: IResponse | unknown | null
     errorMessageRegister: IResponse | unknown | null
     isError: boolean,
@@ -32,10 +48,12 @@ interface AuthState {
     user: IUserType | null
 }
 
-const token: IResponse = JSON.parse(window.localStorage.getItem('user') || '{}')
+const user: IResponse = JSON.parse(window.localStorage.getItem('user') || '{}')
+const token: IResponse = JSON.parse(window.localStorage.getItem('token') || '{}')
 
 const initialState: AuthState = {
-    response: token ? token : null,
+    response: user ? user : null,
+    responseEncode: token ? token : null,
     isError: false,
     errorMessageLogin: null,
     errorMessageRegister: null,
@@ -92,52 +110,57 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(register.pending, (state) => {
-                state.isLoading = true
-            })
-            .addCase(register.fulfilled, (state, action) => {
-                state.isLoading = false
-                state.isSuccess = true
-                state.errorMessageRegister = null
-                state.response = action.payload
-            })
-            .addCase(register.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.response = null
-                state.errorMessageRegister = action.payload
-            })
-            .addCase(login.pending, (state) => {
-                state.isLoading = true
-            })
-            .addCase(login.fulfilled, (state, action) => {
-                state.isLoading = false
-                state.isSuccess = true
-                state.errorMessageLogin = null
-                state.response = action.payload
-            })
-            .addCase(login.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.errorMessageLogin = action.payload
-            })
-            .addCase(logout.fulfilled, (state) => {
-                state.response = null
-                state.user = null
-            })
-            .addCase(getUserInfo.pending, (state) => {
-                state.isLoading = true
-            })
-            .addCase(getUserInfo.fulfilled, (state, action) => {
-                state.isLoading = false
-                state.isSuccess = true
-                state.user = action.payload
-            })
-            .addCase(getUserInfo.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.user = null
-            })
+            .addCase(register.pending, (state) => ({
+                ...state,
+                isLoading: true
+            }))
+            .addCase(register.fulfilled, (state, action) => ({
+                ...state,
+                isLoading: false,
+                isSuccess: true,
+                response: action.payload
+            }))
+            .addCase(register.rejected, (state, action) => ({
+                ...state,
+                isError: true,
+                errorMessageRegister: action.payload,
+            }))
+            .addCase(login.pending, (state) => ({
+                ...state,
+                isLoading: true
+            }))
+            .addCase(login.fulfilled, (state, action) => ({
+                ...state,
+                isSuccess: true,
+                response: action.payload,
+                responseEncode: action.payload,
+                errorMessageLogin: null
+            }))
+            .addCase(login.rejected, (state, action) => ({
+                ...state,
+                isError: true,
+                errorMessageLogin: action.payload,
+            }))
+            .addCase(logout.fulfilled, (state) => ({
+                ...state,
+                response: null,
+                responseEncode: null,
+                user: null,
+            }))
+            .addCase(getUserInfo.pending, (state) => ({
+                ...state,
+                isLoading: true
+            }))
+            .addCase(getUserInfo.fulfilled, (state, action) => ({
+                ...state,
+                isLoading: false,
+                isSuccess: true,
+                user: action.payload,
+            }))
+            .addCase(getUserInfo.rejected, (state, action) => ({
+                ...state,
+                isError: true,
+            }))
     }
 })
 

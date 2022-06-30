@@ -77,11 +77,11 @@ const ProductDetail: React.FC<IProps> = ({ open, onClose, product }): JSX.Elemen
                         <FavoriteIcon sx={{ mr: 2 }} />
                         Add to wishlist
                     </Box>
-                    <Box sx={{ mt: 4, color: Colors.primary }}>
+                    {/* <Box sx={{ mt: 4, color: Colors.primary }}>
                         <Facebook />
                         <Twitter sx={{ pl: theme.spacing(4) }} />
                         <Instagram sx={{ pl: theme.spacing(4) }} />
-                    </Box>
+                    </Box> */}
                 </ProductDetailInfoWrapper>
             </ProductDetailWrapper>
             <DialogContent>
