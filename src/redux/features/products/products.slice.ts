@@ -38,7 +38,7 @@ const initialState: FilterState = {
 }
 
 
-export const getProducts = createAsyncThunk('product', async (query: Props) => {
+export const getProducts = createAsyncThunk('product', async (query: string | null) => {
     try {
         return await productService.getProducts(query);
     } catch (error: any) {

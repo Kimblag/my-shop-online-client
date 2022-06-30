@@ -53,7 +53,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
         dispatch(removeFromCart(product))
         dispatch(getTotal())
     }
-    let favorites = []
+    let favorites: Array<string> = []
     let userId = user?.data?.id
     // const handleGetFavorites = (userId: string) => {
     //     dispatch(getUserFavorites(userId))
@@ -81,10 +81,10 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
             if (favorites.length !== 0 && favorites.includes(product._id)) {
                 e.preventDefault()
                 //TODO agregar delete action
-                let findId = favoriteItems.data.find(ele => ele.favorites._id === product._id)
-                dispatch(removeProductFavorites(findId._id))
+                let findId = favoriteItems?.data?.find(ele => ele.favorites._id === product._id)
+                dispatch(removeProductFavorites(findId?._id as string))
                 setTimeout(() => {
-                    dispatch(getUserFavorites(userId))
+                    dispatch(getUserFavorites(userId as string))
                 }, 800)
                 setLocal(false)
             } else {

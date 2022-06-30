@@ -11,14 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 type Props = {
-  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
 const SearchBox: React.FC<Props> = ({setCurrentPage}): JSX.Element => {
   const { showSearchBox, setShowSearchBox } = useUIContext()
-  const [search, setSearch] = useState('' || null || undefined)
+  const [search, setSearch] = useState<string | null | undefined>('' || null || undefined)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const handleOnChange = (e: { preventDefault: () => void; target: { value: React.SetStateAction<string>; }; }) => {
+  const handleOnChange = (e: { preventDefault: () => void; target: { value: string; }; }) => {
     e.preventDefault()
     setSearch(e.target.value)
   }

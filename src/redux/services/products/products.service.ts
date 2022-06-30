@@ -5,7 +5,7 @@ export type Props = {
     query?: string | null | undefined
 }
 
-const getProducts = async (query: Props) => {
+const getProducts = async (query: string | null) => {
     const response = await axios.get<ProductDocument[]>(`http://localhost:3001/api/products/?name=${query ? query : ''}`)
     return response
 }

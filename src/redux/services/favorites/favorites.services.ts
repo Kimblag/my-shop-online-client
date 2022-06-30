@@ -1,13 +1,12 @@
 import axios from "axios";
 import { addProductProps } from "../../features/favorites/favorites.slice";
-import { ProductDocument } from "../../interfaces/products/product.interface";
 
 export type getUserFavoriteProps = {
     userId: string
 }
 const API_URL = '/api/'
 
-const getUserFavorite = async (userId: string) => {
+const getUserFavorite = async (userId: string | undefined) => {
     // let config = {
     //     headers: {Authorization: `Bearer ${token}`}
     // }

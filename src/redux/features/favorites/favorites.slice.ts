@@ -15,7 +15,7 @@ interface FavoriteState extends AsyncState {
             _id: string
             userId: string
             favorites: ProductDocument
-        }]
+        }] | null
     }
     isLoading: false,
     isSuccess: false,
@@ -40,7 +40,7 @@ const initialState: FavoriteState = {
     }
 }
 
-export const getUserFavorites = createAsyncThunk('wishlist/getFavorites', async (userId: string, thunkAPI) => {
+export const getUserFavorites = createAsyncThunk('wishlist/getFavorites', async (userId: string | undefined, thunkAPI) => {
     try {
         return await wishlistService.getUserFavorite(userId)
     } catch (error: any) {
@@ -49,7 +49,7 @@ export const getUserFavorites = createAsyncThunk('wishlist/getFavorites', async 
     }
 })
 export type addProductProps = {
-    userId: string,
+    userId: string | undefined,
     product: ProductDocument
 }
 export const addProductFavorites = createAsyncThunk('wishlist/addFavorites', async ({ userId, product }: addProductProps, thunkAPI) => {
