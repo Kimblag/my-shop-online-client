@@ -6,14 +6,14 @@ import { rgba } from "polished";
 
 export const NavbarContainer = styled(Box)(() => ({
     display: "flex",
-    marginTop: 4,
+    marginTop: 0,
     justifyContent: "center",
     alignItems: "center",
     padding: '2px 8px',
     position: 'sticky',
     top: '0px',
     zIndex: 3,
-    background: rgba(255,255,255,0.8)
+    background: rgba(238,240,242,0.8)
 }));
 
 

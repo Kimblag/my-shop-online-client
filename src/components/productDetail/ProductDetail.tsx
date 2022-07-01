@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogContent, DialogTitle, IconButton, Slide, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, Slide, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React from 'react'
 import { Colors } from '../../styles/theme'
 import CloseIcon from '@mui/icons-material/Close'
@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 import { Product, ProductDetailInfoWrapper, ProductDetailWrapper, ProductImage } from '../../styles/products'
 import ButtonIncDec from '../ui/ButtonIncDec'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { Facebook, Instagram, Twitter } from '@mui/icons-material'
 import { ProductDocument } from '../../redux/interfaces/products/product.interface'
 
 export interface IProps {
@@ -74,8 +73,12 @@ const ProductDetail: React.FC<IProps> = ({ open, onClose, product }): JSX.Elemen
                         alignItems='center'
                         sx={{ mt: 4, color: Colors.primary }}
                     >
-                        <FavoriteIcon sx={{ mr: 2 }} />
-                        Add to wishlist
+                        <Button onClick={() => {
+                            
+                        }} sx={{width: '200px'}}>
+                            <FavoriteIcon sx={{ mr: 2 }} />
+                            Add to wishlist
+                        </Button>
                     </Box>
                     {/* <Box sx={{ mt: 4, color: Colors.primary }}>
                         <Facebook />

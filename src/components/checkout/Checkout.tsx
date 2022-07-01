@@ -24,6 +24,7 @@ import { IProduct } from '../../redux/interfaces/products/product.interface';
 import { toast } from 'react-toastify';
 import { userIdType } from '../../redux/services/auth/user.services';
 import { getUserCartProps } from '../../redux/services/cart/cart.services';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright() {
     return (
@@ -63,6 +64,7 @@ const Checkout: React.FC = () => {
     const { responseEncode, user } = useAppSelector(state => state.auth)
     const { cartItems, cartTotalAmount, userCart } = useAppSelector(state => state.cart)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     React.useEffect(() => {
         dispatch(getTotal())
@@ -133,12 +135,12 @@ const Checkout: React.FC = () => {
                 }}
             >
                 <Toolbar sx={{ backgroundColor: Colors.secondary }}>
-                    <Typography sx={{ fontFamily: 'Montez' }} variant="h3" color="inherit" noWrap>
+                    <Typography onClick={() => navigate('/')} sx={{ fontFamily: 'Montez', cursor: 'pointer' }} variant="h3" color="inherit" noWrap>
                         My Shop
                     </Typography>
                 </Toolbar>
                 <Toolbar>
-                    <Button variant='contained' sx={{backgroundColor: Colors.secondary}}> Go Back</Button>
+                    <Button onClick={() => navigate('/')} variant='contained' sx={{backgroundColor: Colors.secondary}}> Go Back</Button>
                 </Toolbar>
             </AppBar>
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>

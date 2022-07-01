@@ -14,6 +14,7 @@ import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch } from '../../redux/hooks';
 import { IUserType, logout, reset } from '../../redux/features/auth/auth.slice';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 
 type MenuProps = {
@@ -94,6 +95,11 @@ const AccountMenu: React.FC<MenuProps> = ({ user }): JSX.Element => {
             >
                 <MenuItem onClick={() => navigate('/profile')}>
                     <Avatar /> Profile
+                </MenuItem>
+                <MenuItem onClick={() => navigate('/orders')}>
+                    <Avatar>
+                        <ShoppingCartCheckoutIcon />
+                    </Avatar> Orders
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>

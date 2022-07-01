@@ -1,11 +1,10 @@
 import { Person, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Avatar, Button, Checkbox, Divider, FormControlLabel, Grid, IconButton, InputAdornment, OutlinedInput, Paper, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Avatar, Button, Divider, Grid, IconButton, InputAdornment, OutlinedInput, Paper, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { getUserInfo, reset } from '../../redux/features/auth/auth.slice'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks'
 import { Item } from '../../styles/profile'
 import { Colors } from '../../styles/theme'
 
@@ -13,10 +12,9 @@ const UserProfile = () => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
   const { user, responseEncode } = useAppSelector(state => state.auth)
-  const dispatch = useAppDispatch()
   const [input, setInput] = useState({
-    name: '',
-    lastname: '',
+    name: user?.data.name || "",
+    lastname: user?.data.lastname || "",
     password: '',
     confirmPassword: '',
     showPassword: false,

@@ -16,14 +16,14 @@ export default function AddressForm() {
     const { user, responseEncode } = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
     const [input, setInput] = useState({
-        name: '',
-        lastname: '',
-        address: "",
-        address2: "",
-        state: "",
-        zipcode: "",
-        city: "",
-        country: "",
+        name: user?.data?.name || '',
+        lastname: user?.data?.lastname || '',
+        address: user?.data?.address.street || '',
+        address2: user?.data?.address.street || '',
+        state: user?.data?.address.province || '',
+        zipcode: user?.data?.address.zip || '',
+        city: user?.data?.address.city || '',
+        country: user?.data?.address.country || '',
     })
 
     type userDecodeType = {
@@ -171,6 +171,7 @@ export default function AddressForm() {
                         label="State/Province/Region"
                         fullWidth
                         variant="standard"
+                        defaultValue={user?.data?.address.province}
                         value={input.state}
                         onChange={handleOnChange}
                     />

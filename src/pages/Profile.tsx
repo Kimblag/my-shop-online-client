@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Footer from '../components/footer/Footer';
 import Navbar from '../components/navbar/Navbar'
 import UserProfile from '../components/UserProfile/UserProfile';

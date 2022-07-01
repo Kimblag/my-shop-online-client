@@ -56,9 +56,6 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
     }
     let favorites: Array<string> = []
     let userId = user?.data?.id
-    // const handleGetFavorites = (userId: string) => {
-    //     dispatch(getUserFavorites(userId))
-    // }
 
     if (user?.data) {
         if (favoriteItems?.data !== undefined && favoriteItems?.data !== null) {
@@ -103,7 +100,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
     return (
         <>
             <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                <ProductImage src={product.image} alt={product.name} />
+                <ProductImage sx={{cursor: 'pointer'}} onClick={toggle} src={product.image} alt={product.name} />
                 {local === false
                     ? (
                         <ProductFavButton onClick={(e) => handleWishList(e)} isfav={1}>
