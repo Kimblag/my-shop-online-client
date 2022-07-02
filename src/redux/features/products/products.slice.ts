@@ -107,6 +107,13 @@ export const productSlice = createSlice({
                 ...state.filter,
                 order: action.payload.order
             }
+        },
+        resetFilters(state: FilterState) {
+            state.filter = {
+                brand: 'AllBrands',
+                category: 'AllCategories',
+                order: 'All'
+            }
         }
     },
     extraReducers: (builder) => {
@@ -119,15 +126,15 @@ export const productSlice = createSlice({
                 products: action.payload,
                 productsFilter: action.payload,
                 isLoading: false
-                
+
             }))
             .addCase(getProducts.rejected, (state, action) => ({
-               ...state,
-               isError: true,
-               error: action.payload
+                ...state,
+                isError: true,
+                error: action.payload
             }))
     }
 })
 
-export const { filteredProducts, orderedProducts } = productSlice.actions;
+export const { filteredProducts, orderedProducts, resetFilters } = productSlice.actions;
 export default productSlice.reducer

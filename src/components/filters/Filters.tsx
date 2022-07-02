@@ -1,7 +1,7 @@
 import { Button, NativeSelect, useMediaQuery, useTheme } from '@mui/material'
 import { Container } from '@mui/system'
 import React, { useState } from 'react'
-import { filteredProducts, getProducts, orderedProducts } from '../../redux/features/products/products.slice'
+import { filteredProducts, getProducts, orderedProducts, resetFilters } from '../../redux/features/products/products.slice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { ProductDocument } from '../../redux/interfaces/products/product.interface'
 
@@ -63,6 +63,7 @@ const Filters: React.FC<Props> = ({ setCurrentPage }): JSX.Element => {
                     variant="contained"
                     color="secondary" onClick={() => {
                         dispatch(getProducts(null))
+                        dispatch(resetFilters())
                         setCurrentPage(1)
                     }}>
                     Reset Filters
