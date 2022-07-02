@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/api/'
+const API_URL = (process.env.REACT_APP_API_URL)
 
 export type userIdType = {
     id: undefined | string
@@ -9,7 +9,8 @@ export type userIdType = {
 
 
 const getUserInfo = async (userId: string) => {
-    const response = await axios.get(API_URL + 'signin/user/' + userId)
+    console.log(userId)
+    const response = await axios.get(`${API_URL}/api/signin/user/${userId}`)
     return response.data
 }
 

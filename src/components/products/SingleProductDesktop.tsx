@@ -28,7 +28,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
     const dispatch = useAppDispatch()
     const { cartItems } = useAppSelector(state => state.cart)
     const addToCartText = cartItems.findIndex(item => item._id === product._id) >= 0 ? 'Remove from cart' : 'Add to cart'
-    const { user } = useAppSelector(state => state.auth)
+    const { user, responseEncode } = useAppSelector(state => state.auth)
     const { favoriteItems } = useAppSelector(state => state.wishlist)
     const [local, setLocal] = useState(false);
 
@@ -80,16 +80,16 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
                 e.preventDefault()
                 //TODO agregar delete action
                 let findId = favoriteItems?.data?.find(ele => ele.favorites._id === product._id)
-                dispatch(removeProductFavorites(findId?._id as string))
+                dispatch(removeProductFavorites({productId: findId?._id as string, token: responseEncode as string}))
                 setTimeout(() => {
-                    dispatch(getUserFavorites(userId as string))
+                    dispatch(getUserFavorites({userId: userId as string, token: responseEncode as string}))
                 }, 800)
                 setLocal(false)
             } else {
                 e.preventDefault()
-                dispatch(addProductFavorites({ userId, product }))
+                dispatch(addProductFavorites({ userId, product, token: responseEncode as string }))
                 setTimeout(() => {
-                    dispatch(getUserFavorites(userId))
+                    dispatch(getUserFavorites({userId, token: responseEncode as string}))
                 }, 800)
                 setLocal(true)
             }

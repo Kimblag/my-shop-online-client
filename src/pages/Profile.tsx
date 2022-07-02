@@ -14,7 +14,7 @@ import { Colors } from '../styles/theme';
 
 const Profile = () => {
     const dispatch = useAppDispatch()
-    const { user } = useAppSelector(state => state.auth)
+    const { user, responseEncode } = useAppSelector(state => state.auth)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currentPage, setCurrentPage] = useState<number>(1)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,12 +31,12 @@ const Profile = () => {
         const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
         const userId: string = userDecode?.id
         dispatch(getUserInfo(userId))
-        dispatch(getUserFavorites(userId))
+        dispatch(getUserFavorites({userId, token: responseEncode as string}))
         setTimeout(() => {
             dispatch(reset())
             dispatch(resetFavorite())
         }, 800)
-    }, [dispatch])
+    }, [dispatch, responseEncode])
 
     const handleClickOpen = () => {
         setOpen(true);

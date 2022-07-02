@@ -39,30 +39,32 @@ const initialState: FavoriteState = {
         favorites: []
     }
 }
-
-export const getUserFavorites = createAsyncThunk('wishlist/getFavorites', async (userId: string | undefined, thunkAPI) => {
-    try {
-        return await wishlistService.getUserFavorite(userId)
-    } catch (error: any) {
-        const message = error.response.data.errors.message || error.response
-        return thunkAPI.rejectWithValue(message)
-    }
-})
 export type addProductProps = {
     userId: string | undefined,
-    product: ProductDocument
+    product: ProductDocument,
+    token: string
 }
-export const addProductFavorites = createAsyncThunk('wishlist/addFavorites', async ({ userId, product }: addProductProps, thunkAPI) => {
+
+export const getUserFavorites = createAsyncThunk('wishlist/getFavorites', async ({userId, token}:{userId: string | undefined, token: string}, thunkAPI) => {
     try {
-        return await wishlistService.addUserFavorite({ userId, product })
+        return await wishlistService.getUserFavorite({userId, token})
     } catch (error: any) {
         const message = error.response.data.errors.message || error.response
         return thunkAPI.rejectWithValue(message)
     }
 })
-export const removeProductFavorites = createAsyncThunk('wishlist/removeFavorites', async (productId: string, thunkAPI) => {
+
+export const addProductFavorites = createAsyncThunk('wishlist/addFavorites', async ({ userId, product, token }: addProductProps, thunkAPI) => {
     try {
-        return await wishlistService.removeUserFavorite(productId)
+        return await wishlistService.addUserFavorite({ userId, product, token })
+    } catch (error: any) {
+        const message = error.response.data.errors.message || error.response
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+export const removeProductFavorites = createAsyncThunk('wishlist/removeFavorites', async ({productId, token}: {productId: string, token: string}, thunkAPI) => {
+    try {
+        return await wishlistService.removeUserFavorite({productId, token})
     } catch (error: any) {
         const message = error.response.data.errors.message || error.response
         return thunkAPI.rejectWithValue(message)

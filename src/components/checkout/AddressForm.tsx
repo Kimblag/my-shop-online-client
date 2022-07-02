@@ -69,12 +69,12 @@ export default function AddressForm() {
                     zip: input.zipcode || ''
                 }
             }
-            const API_URL = '/api/'
-
+            const API_URL = (process.env.REACT_APP_API_URL)
+            
             const config = {
                 headers: { Authorization: `Bearer ${responseEncode}` }
             }
-            const response = await axios.put(`${API_URL}user/update`, newData, config)
+            const response = await axios.put(`${API_URL}/api/user/update`, newData, config)
             dispatch(getUserInfo(userId))
             dispatch(reset())
             setInput({

@@ -10,14 +10,15 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Avatar, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Checkbox, Container, CssBaseline, FormControlLabel, Grid, InputAdornment, OutlinedInput, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { Colors } from '../../styles/theme';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getUserInfo, login, reset } from '../../redux/features/auth/auth.slice';
 import Loader from '../loader/Loader';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Copyright(props: any) {
   return (
@@ -51,7 +52,7 @@ type Props = {
 const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
-  const initialValues = { email: '', password: '' }
+  const initialValues = { email: '', password: '', showPassword: false }
   const [formValues, setFormValues] = useState(initialValues)
   const [formErrors, setFormErrors] = useState<{ email: string, password: string }>({ email: '', password: '' })
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -62,11 +63,11 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   const [error, setError] = useState<any>('')
 
   type userDecodeType = {
-      exp: number
-      iat: number
-      id: string
-      isAdmin: boolean
-   
+    exp: number
+    iat: number
+    id: string
+    isAdmin: boolean
+
   }
 
   useEffect(() => {
@@ -76,7 +77,6 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     }
     if (isSuccess) {
       close()
-      // navigate('/')
       dispatch(reset())
     }
   }, [response, userState, close, isSuccess, isError, navigate, dispatch, errorMessageLogin, error])
@@ -117,6 +117,19 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     close()
     openRegister()
   }
+  const handleOpenForgotPassword = () => {
+    close()
+    navigate('/forgot-password')
+  }
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+  const handleClickShowPassword = () => {
+    setFormValues({
+      ...formValues,
+      showPassword: !formValues.showPassword,
+    });
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
@@ -124,7 +137,7 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     setIsSubmit(true)
     const userData = {
       email: formValues.email,
-      password: formValues.password
+      password: formValues.password,
     }
     await dispatch(login(userData))
     const userDecode: userDecodeType = await JSON.parse(window.localStorage.getItem('user') || '{}')
@@ -133,9 +146,9 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
       dispatch(getUserInfo(userId))
       setFormValues(initialValues)
       setFormErrors({ email: '', password: '' })
-      setError('') 
+      setError('')
       navigate('/')
-   
+
     }
   }
 
@@ -203,29 +216,40 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
               <Box>
                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.email}</Typography>
               </Box>
-              <TextField
-                margin="normal"
+              <OutlinedInput
                 required
                 fullWidth
                 name="password"
-                label="Password"
-                type="password"
+                placeholder="Password"
                 id="password"
+                type={formValues.showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 value={formValues.password}
                 onChange={handleInputChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {formValues.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
               <Box>
                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.password}</Typography>
                 {error ? (
-                <Typography variant='caption' color={'red'}>{error}</Typography>
-              ) : null}
+                  <Typography variant='caption' color={'red'}>{error}</Typography>
+                ) : null}
               </Box>
-              
-              <FormControlLabel
+
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 onClick={handleSubmit}
                 type="submit"
@@ -237,9 +261,9 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
               </Button>
               <Grid container sx={{ display: 'flex', flexDirection: matches ? 'column' : 'row' }}>
                 <Grid item xs sx={{ p: 1 }}>
-                  <Link to="#" style={{ textDecoration: 'none', color: Colors.secondary }}>
+                  <span onClick={handleOpenForgotPassword} style={{ textDecoration: 'none', color: Colors.secondary, cursor: 'pointer' }}>
                     Forgot password?
-                  </Link>
+                  </span>
                 </Grid>
                 <Grid item sx={{ p: 1 }}>
                   <span onClick={handleOpenRegister} style={{ textDecoration: 'none', color: Colors.secondary, cursor: 'pointer' }} >
