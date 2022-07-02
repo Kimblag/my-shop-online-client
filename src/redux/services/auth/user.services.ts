@@ -9,7 +9,6 @@ export type userIdType = {
 
 
 const getUserInfo = async (userId: string) => {
-    console.log(userId)
     const response = await axios.get(`${API_URL}/api/signin/user/${userId}`)
     return response.data
 }

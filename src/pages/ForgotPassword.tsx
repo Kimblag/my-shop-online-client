@@ -44,7 +44,6 @@ export default function ForgotPassword() {
         try {
             const response = await axios.post(`${API_URL}/api/user/forgotpassword`, { email: email })
             setEmail('')
-            console.log(response.data)
             if (response.data.status === 'success') {
                 toast.success('Please verify your email to reset password')
                 setTimeout(() => {

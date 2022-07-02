@@ -66,7 +66,6 @@ const ChangePassword = () => {
                 toast.warn('Please complete all fields')
             } else {
                 const response = await axios.post(`${API_URL}/api/user/newpassword/${token}`, { password: formValues.confirmPassword })
-                console.log(response.data)
                 if (response.data.status === 'success') {
                     toast.info('Password changed successfully')
                     setTimeout(() => {

@@ -93,7 +93,6 @@ const Checkout: React.FC = () => {
 
         try {
             const response = await axios.post(`${API_URL}/api/order`, infoUserCart, config)
-            console.log(response.data)
             let userInfo: getUserCartProps = { userId: user?.data.id, token: responseEncode }
             dispatch(getUserCart(userInfo))
             dispatch(clearCart())
@@ -103,7 +102,6 @@ const Checkout: React.FC = () => {
         }
     }
     let getLastOrder: any = userCart.data.at(-1)
-    console.log(getLastOrder?._id)
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
