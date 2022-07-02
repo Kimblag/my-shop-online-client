@@ -43,7 +43,7 @@ const UserProfile = () => {
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-
+  const API_URL = '/api/'
   const handleOnSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (!input.name && !input.lastname && !input.password && !input.confirmPassword) {
@@ -58,7 +58,7 @@ const UserProfile = () => {
         const config = {
           headers: { Authorization: `Bearer ${responseEncode}` }
         }
-        const response = await axios.put('http://localhost:3001/api/user/update', newData, config)
+        const response = await axios.put(`${API_URL}user/update`, newData, config)
         setInput({
           name: '',
           lastname: '',
@@ -83,8 +83,8 @@ const UserProfile = () => {
         const config = {
           headers: { Authorization: `Bearer ${responseEncode}` }
         }
-        const responsePassword = await axios.post('http://localhost:3001/api/user/password', newPassword, config)
-        const responseInfoUser = await axios.put('http://localhost:3001/api/user/update', newData, config)
+        const responsePassword = await axios.post(`${API_URL}user/password`, newPassword, config)
+        const responseInfoUser = await axios.put(`${API_URL}user/update`, newData, config)
         setInput({
           name: '',
           lastname: '',
@@ -106,7 +106,7 @@ const UserProfile = () => {
         const config = {
           headers: { Authorization: `Bearer ${responseEncode}` }
         }
-        const response = await axios.post('http://localhost:3001/api/user/password', newData, config)
+        const response = await axios.post(`${API_URL}user/password`, newData, config)
         setInput({
           name: '',
           lastname: '',
