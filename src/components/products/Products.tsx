@@ -11,7 +11,7 @@ type Props = {
 const Products: React.FC<Props> = ({ products }): JSX.Element => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down('md'))
-    const sliced = products?.slice(0, 6)
+    const sliced = products.slice(0, 6)
 
     var idInc: number = 1
 
