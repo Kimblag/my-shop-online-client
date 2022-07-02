@@ -13,6 +13,8 @@ import Orders from './pages/Orders'
 import Profile from './pages/Profile'
 import ProtectedRoute from './pages/ProtectedRoute'
 import Shop from './pages/Shop'
+import ForgotPassword from './pages/ForgotPassword';
+import ChangePassword from './pages/ChangePassword';
 
 const App: React.FC = (): JSX.Element => {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -54,6 +56,8 @@ const App: React.FC = (): JSX.Element => {
               <CheckoutScreen />
             </ProtectedRoute>
           } />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/change-password' element={<ChangePassword />} />
           <Route path='*' element={<Alert severity='error'>404 NOT FOUND</Alert>} />
         </Routes>
       </UIContext.Provider>

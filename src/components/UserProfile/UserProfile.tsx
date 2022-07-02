@@ -67,7 +67,7 @@ const UserProfile = () => {
           showPassword: false,
           showConfirmPassword: false,
         })
-        console.log(response.data)
+     
         response.data.status === 'success'
           ? toast.success('Information updated correctly')
           : toast.error('Something goes wrong')
@@ -84,7 +84,7 @@ const UserProfile = () => {
           headers: { Authorization: `Bearer ${responseEncode}` }
         }
         const responsePassword = await axios.post(`${API_URL}/api/user/password`, newPassword, config)
-        const responseInfoUser = await axios.put(`${API_URL}/api/user/update`, newData, config)
+        await axios.put(`${API_URL}/api/user/update`, newData, config)
         setInput({
           name: '',
           lastname: '',
@@ -93,8 +93,7 @@ const UserProfile = () => {
           showPassword: false,
           showConfirmPassword: false,
         })
-        console.log(responsePassword.data)
-        console.log(responseInfoUser.data)
+        
         responsePassword.data.status === 'success'
           ? toast.success('Information updated correctly')
           : toast.error('Something goes wrong')
