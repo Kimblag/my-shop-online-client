@@ -6,14 +6,12 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch } from '../../redux/hooks';
 import { IUserType, logout, reset } from '../../redux/features/auth/auth.slice';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 
 type MenuProps = {
@@ -92,8 +90,13 @@ const AccountMenu: React.FC<MenuProps> = ({ user }): JSX.Element => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
+                <MenuItem onClick={() => navigate('/profile')}>
                     <Avatar /> Profile
+                </MenuItem>
+                <MenuItem onClick={() => navigate('/orders')}>
+                    <Avatar>
+                        <ShoppingCartCheckoutIcon />
+                    </Avatar> Orders
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>

@@ -13,25 +13,24 @@ import { Colors } from '../../styles/theme';
 
 export default function AddressForm() {
 
-    const { user, response, responseEncode } = useAppSelector(state => state.auth)
+    const { user, responseEncode } = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
     const [input, setInput] = useState({
-        name: '',
-        lastname: '',
-        address: "",
-        address2: "",
-        state: "",
-        zipcode: "",
-        city: "",
-        country: "",
+        name: user?.data?.name || '',
+        lastname: user?.data?.lastname || '',
+        address: user?.data?.address.street || '',
+        address2: user?.data?.address.street || '',
+        state: user?.data?.address.province || '',
+        zipcode: user?.data?.address.zip || '',
+        city: user?.data?.address.city || '',
+        country: user?.data?.address.country || '',
     })
-    type userDecodeType = {
 
+    type userDecodeType = {
         exp: number
         iat: number
         id: string
         isAdmin: boolean
-
     }
     const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
     const userId: string = userDecode?.id
@@ -172,6 +171,7 @@ export default function AddressForm() {
                         label="State/Province/Region"
                         fullWidth
                         variant="standard"
+                        defaultValue={user?.data?.address.province}
                         value={input.state}
                         onChange={handleOnChange}
                     />
@@ -203,7 +203,7 @@ export default function AddressForm() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Button variant='contained' sx={{backgroundColor: Colors.secondary}} onClick={(e) => handleOnSubmit(e)}>
+                    <Button variant='contained' sx={{ backgroundColor: Colors.secondary }} onClick={(e) => handleOnSubmit(e)}>
                         Save
                     </Button>
                 </Grid>

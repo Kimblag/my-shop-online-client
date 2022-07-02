@@ -1,10 +1,8 @@
 import axios from 'axios'
-import { IResponse } from '../../features/auth/auth.slice'
-import { userIdType } from '../auth/user.services'
 
 export type getUserCartProps = {
     userId: string | undefined,
-    token: IResponse | null
+    token: string | null
 }
 const API_URL = '/api/'
 

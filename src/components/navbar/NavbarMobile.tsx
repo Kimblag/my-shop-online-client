@@ -6,22 +6,24 @@ import SearchIcon from '@mui/icons-material/Search'
 import Actions from './actions'
 import { useUIContext } from '../context/ui'
 import { IUserType } from '../../redux/features/auth/auth.slice'
+import { useNavigate } from 'react-router-dom'
 
 type NavbarProps = {
   matches?: boolean
-  open: () => void
-  close: () => void
+  open?: () => void | undefined
+  close?: () => void | undefined
   user: IUserType | null
 }
 
 const NavbarMobile: React.FC<NavbarProps> = ({ user, matches, open, close }): JSX.Element => {
   const { setDrawerOpen, setShowSearchBox } = useUIContext()
+  const navigate = useNavigate()
   return (
     <NavbarContainer>
       <IconButton onClick={() => setDrawerOpen(true)} >
         <MenuIcon />
       </IconButton>
-      <NavbarHeader textAlign={'center'} variant='h4'>
+      <NavbarHeader onClick={() => navigate('/')} sx={{cursor: 'pointer'}} textAlign={'center'} variant='h4'>
         My Shop
       </NavbarHeader>
       <IconButton onClick={() => setShowSearchBox(true)}>

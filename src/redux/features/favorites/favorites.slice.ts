@@ -72,7 +72,13 @@ export const removeProductFavorites = createAsyncThunk('wishlist/removeFavorites
 const cartSlice = createSlice({
     name: 'favorites',
     initialState,
-    reducers: {},
+    reducers: {
+        resetFavorite: (state: FavoriteState) => {
+            state.isLoading = false
+            state.isError = false
+            state.isSuccess = false
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUserFavorites.pending, (state) => ({
@@ -111,5 +117,5 @@ const cartSlice = createSlice({
     }
 })
 
-// export const {  } = cartSlice.actions;
+export const { resetFavorite } = cartSlice.actions;
 export default cartSlice.reducer

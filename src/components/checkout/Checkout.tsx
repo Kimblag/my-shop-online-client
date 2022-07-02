@@ -9,34 +9,19 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { Colors } from '../../styles/theme';
-import { getUserInfo, IUserType } from '../../redux/features/auth/auth.slice';
+import { getUserInfo } from '../../redux/features/auth/auth.slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { clearCart, getTotal, getUserCart } from '../../redux/features/cart/cart.slice';
-import { IProduct } from '../../redux/interfaces/products/product.interface';
 import { toast } from 'react-toastify';
-import { userIdType } from '../../redux/services/auth/user.services';
 import { getUserCartProps } from '../../redux/services/cart/cart.services';
+import { useNavigate } from 'react-router-dom';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const steps = ['Shipping address', 'Review your order'];
 
@@ -44,8 +29,6 @@ function getStepContent(step: number) {
     switch (step) {
         case 0:
             return <AddressForm />;
-        // case 1:
-        //     return <PaymentForm />;
         case 1:
             return <Review />;
         default:
@@ -63,6 +46,7 @@ const Checkout: React.FC = () => {
     const { responseEncode, user } = useAppSelector(state => state.auth)
     const { cartItems, cartTotalAmount, userCart } = useAppSelector(state => state.cart)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     React.useEffect(() => {
         dispatch(getTotal())
@@ -133,12 +117,12 @@ const Checkout: React.FC = () => {
                 }}
             >
                 <Toolbar sx={{ backgroundColor: Colors.secondary }}>
-                    <Typography sx={{ fontFamily: 'Montez' }} variant="h3" color="inherit" noWrap>
+                    <Typography onClick={() => navigate('/')} sx={{ fontFamily: 'Montez', cursor: 'pointer' }} variant="h3" color="inherit" noWrap>
                         My Shop
                     </Typography>
                 </Toolbar>
                 <Toolbar>
-                    <Button variant='contained' sx={{backgroundColor: Colors.secondary}}> Go Back</Button>
+                    <Button onClick={() => navigate('/orders')} variant='contained' sx={{backgroundColor: Colors.secondary}}> Go Back</Button>
                 </Toolbar>
             </AppBar>
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -188,7 +172,6 @@ const Checkout: React.FC = () => {
                         )}
                     </React.Fragment>
                 </Paper>
-                <Copyright />
             </Container>
         </ThemeProvider>
     );

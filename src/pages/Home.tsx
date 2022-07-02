@@ -15,7 +15,7 @@ import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
 import WishList from '../components/wishList/WishList'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
-import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
+import { getUserFavorites, resetFavorite } from '../redux/features/favorites/favorites.slice'
 import { getProducts } from '../redux/features/products/products.slice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { Colors } from '../styles/theme'
@@ -27,6 +27,7 @@ const Home: React.FC = (): JSX.Element => {
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const { user } = useAppSelector(state => state.auth)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1)
 
 
@@ -44,7 +45,10 @@ const Home: React.FC = (): JSX.Element => {
   useEffect(() => {
     dispatch(getUserInfo(userId))
     dispatch(getUserFavorites(userId))
-    dispatch(reset())
+    setTimeout(() => {
+      dispatch(reset())
+      dispatch(resetFavorite())
+    }, 800)
   }, [dispatch, userId])
 
   //TODO validar si esta el usuario en local storage y despachar la action.
@@ -57,6 +61,7 @@ const Home: React.FC = (): JSX.Element => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleOpenRegister = () => {
     setOpenRegister(true);
   };

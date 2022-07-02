@@ -47,9 +47,9 @@ const SearchBox: React.FC<Props> = ({setCurrentPage}): JSX.Element => {
 
   return (
     <Slide direction="down" in={showSearchBox} timeout={500}>
-      <SearchBoxContainer>
+      <SearchBoxContainer component='form'>
         <SearchField value={search} name='search' onChange={handleOnChange} color="secondary" variant="standard" fullWidth placeholder="Search..." />
-        <IconButton onClick={handleSubmit}>
+        <IconButton type='submit' onClick={(e) => handleSubmit(e)}>
           <SearchIcon
             sx={{ fontSize: { xs: '2rem', md: '2.5rem' } }}
             color="secondary"

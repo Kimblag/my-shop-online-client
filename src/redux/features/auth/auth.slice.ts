@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
 import authService, { userData, userLoginData } from '../../services/auth/auth.services'
 import userService from '../../services/auth/user.services'
 
@@ -39,7 +38,7 @@ export type IUserType = {
 
 interface AuthState {
     response: IResponse | null,
-    responseEncode: IResponse | null
+    responseEncode: string | null
     errorMessageLogin: IResponse | unknown | null
     errorMessageRegister: IResponse | unknown | null
     isError: boolean,
@@ -49,7 +48,7 @@ interface AuthState {
 }
 
 const user: IResponse = JSON.parse(window.localStorage.getItem('user') || '{}')
-const token: IResponse = JSON.parse(window.localStorage.getItem('token') || '{}')
+const token: string = JSON.parse(window.localStorage.getItem('token') || '{}')
 
 const initialState: AuthState = {
     response: user ? user : null,
@@ -133,7 +132,7 @@ export const authSlice = createSlice({
                 ...state,
                 isSuccess: true,
                 response: action.payload,
-                responseEncode: action.payload,
+                responseEncode: JSON.parse(window.localStorage.getItem('token') || ''),
                 errorMessageLogin: null
             }))
             .addCase(login.rejected, (state, action) => ({

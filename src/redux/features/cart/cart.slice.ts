@@ -3,8 +3,6 @@ import { Cart } from '../../interfaces/cart/cart.interface'
 import { toast } from 'react-toastify'
 import { ProductDocument } from '../../interfaces/products/product.interface';
 import cartService, { getUserCartProps } from '../../services/cart/cart.services';
-import { userIdType } from '../../services/auth/user.services';
-
 interface AsyncState {
     isLoading: boolean;
     isSuccess: boolean;

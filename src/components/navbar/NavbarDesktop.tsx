@@ -4,21 +4,22 @@ import { MyList, NavbarContainer, NavbarHeader } from '../../styles/navbar'
 import SearchIcon from '@mui/icons-material/Search'
 import Actions from './actions'
 import { useUIContext } from '../context/ui'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IUserType } from '../../redux/features/auth/auth.slice'
 
 type NavbarProps = {
     matches?: boolean
-    open: () => void
-    close: () => void
+    open?: () => void | undefined
+    close?: () => void | undefined
     user: IUserType | null
 }
 
 const NavbarDesktop: React.FC<NavbarProps> = ({ user, matches, open, close }): JSX.Element => {
     const { setShowSearchBox } = useUIContext()
+    const navigate = useNavigate()
     return (
         <NavbarContainer>
-            <NavbarHeader>My Shop</NavbarHeader>
+            <NavbarHeader onClick={() => navigate('/')} sx={{cursor: 'pointer'}}>My Shop</NavbarHeader>
             <MyList type='row'>
                 <ListItem>
                     <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
@@ -33,9 +34,9 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ user, matches, open, close }): J
                 </ListItem>
 
                 <ListItem>
-                    <Link to='/contact' style={{textDecoration: 'none', color: 'inherit'}}>
-                        <ListItemText primary="Contact" />
-                    </Link>
+                    {/* <Link to='/contact' style={{textDecoration: 'none', color: 'inherit'}}> */}
+                        <ListItemText sx={{cursor: 'pointer'}} primary="Contact" />
+                    {/* </Link> */}
                 </ListItem>
                 <ListItemButton>
                     <ListItemIcon onClick={() => setShowSearchBox(true)}>

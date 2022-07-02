@@ -9,7 +9,7 @@ import { getTotal } from '../../redux/features/cart/cart.slice';
 
 
 export default function Review() {
-  const { cartItems, cartTotalAmount, cartTotalQuantity } = useAppSelector(state => state.cart)
+  const { cartItems, cartTotalAmount } = useAppSelector(state => state.cart)
   const user = useAppSelector(state => state.auth.user)
   const dispatch = useAppDispatch()
 

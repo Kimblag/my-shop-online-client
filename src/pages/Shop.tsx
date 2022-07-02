@@ -13,9 +13,9 @@ import Loader from '../components/loader/Loader'
 import Signin from '../components/signin/Signin'
 import Signup from '../components/signup/Signup'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
-import { Alert, AlertTitle, Stack } from '@mui/material'
+import { Alert, AlertTitle } from '@mui/material'
 import { Container } from '@mui/system'
-import { getUserFavorites } from '../redux/features/favorites/favorites.slice'
+import { getUserFavorites, resetFavorite } from '../redux/features/favorites/favorites.slice'
 import WishList from '../components/wishList/WishList'
 
 
@@ -40,7 +40,10 @@ const Shop: React.FC = (): JSX.Element => {
     const userId: string = userDecode?.id
     dispatch(getUserInfo(userId))
     dispatch(getUserFavorites(userId))
-    dispatch(reset())
+    setTimeout(() => {
+      dispatch(reset())
+      dispatch(resetFavorite())
+    }, 800)
   }, [dispatch])
 
 

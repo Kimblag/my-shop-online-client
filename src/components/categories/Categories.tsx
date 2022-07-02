@@ -1,12 +1,13 @@
 import React from 'react'
 import { categories } from '../../data'
-import { Container } from '../../styles/Categories.styles'
+import { Container } from '../../styles/category/Categories.styles'
 import CategoryItem from './CategoryItem'
 
 type Props = {
   isLoading: boolean
 }
 const Categories: React.FC<Props> = ({ isLoading }): JSX.Element => {
+
   return (
     <Container>
       {categories.map((item) => (

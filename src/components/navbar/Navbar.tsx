@@ -6,8 +6,8 @@ import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 
 type Props = {
-  open: () => void
-  close: () => void
+  open: () => void | undefined
+  close: () => void | undefined
   user: IUserType | null
 }
 const Navbar: React.FC<Props> = ({ open, close, user }) => {
