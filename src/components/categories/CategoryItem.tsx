@@ -2,8 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { filteredProducts } from '../../redux/features/products/products.slice'
 import { useAppDispatch } from '../../redux/hooks'
-import { Container, Image, Info, Title, Button } from '../../styles/CategoryItem.styles'
-
+import { Container } from '../../styles/category/CategoryItem.styles'
+import {Image, Info, Title, Button} from '../../styles/category/categoryItems.styled.styles'
 type Props = {
     item: {
         id: number,

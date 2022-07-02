@@ -28,8 +28,8 @@ const SingleProduct: React.FC<Props> = ({ product, matches }): JSX.Element => {
     const { user } = useAppSelector(state => state.auth)
     const { favoriteItems } = useAppSelector(state => state.wishlist)
     const [local, setLocal] = useState(false);
-    
-    
+
+
     useEffect(() => {
         dispatch(getTotal())
     }, [dispatch])
@@ -40,7 +40,7 @@ const SingleProduct: React.FC<Props> = ({ product, matches }): JSX.Element => {
         } else {
             setLocal(false);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product._id]);
 
     const handleAddProduct = (product: ProductDocument) => {
@@ -103,20 +103,17 @@ const SingleProduct: React.FC<Props> = ({ product, matches }): JSX.Element => {
                 <ProductMeta product={product} matches={matches} />
                 <ProductActionsWrapper>
                     <Stack direction='row'>
-                    {local === false
-                    ? (
-                        <ProductFavButton onClick={(e) => handleWishList(e)} isfav={1}>
-                            <FavoriteOutlinedIcon />
-                        </ProductFavButton>)
-                    : (
-                        <ProductFavButton onClick={(e) => handleWishList(e)} isfav={0}>
-                            <FavoriteIcon />
-                        </ProductFavButton>
-                    )
-                }
-                        {/* <ProductActionButton>
-                            <ShareIcon />
-                        </ProductActionButton> */}
+                        {local === false
+                            ? (
+                                <ProductFavButton onClick={(e) => handleWishList(e)} isfav={1}>
+                                    <FavoriteOutlinedIcon />
+                                </ProductFavButton>)
+                            : (
+                                <ProductFavButton onClick={(e) => handleWishList(e)} isfav={0}>
+                                    <FavoriteIcon />
+                                </ProductFavButton>
+                            )
+                        }
                         <ProductActionButton onClick={toggle}>
                             <FitScreenIcon />
                         </ProductActionButton>
@@ -124,7 +121,7 @@ const SingleProduct: React.FC<Props> = ({ product, matches }): JSX.Element => {
                 </ProductActionsWrapper>
                 <ProductAddToCart onClick={() => addToCartText === 'Add to cart' ? handleAddProduct(product) : handleRemoveProduct(product)} variant="contained" >{addToCartText}</ProductAddToCart>
             </Product>
-            <ProductDetail open={open} onClose={toggle} product={product} />
+            <ProductDetail local={local} userId={userId} favorites={favorites} handleWishList={handleWishList} open={open} onClose={toggle} product={product} />
         </>
     )
 }

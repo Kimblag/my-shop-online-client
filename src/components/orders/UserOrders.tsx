@@ -3,7 +3,6 @@ import { OrderItem } from '../../redux/interfaces/orders/orders.interfaces';
 import DataTable from 'react-data-table-component'
 import { useAppSelector } from '../../redux/hooks';
 import { Avatar, Button, Container, Divider, Modal, Typography, useMediaQuery, useTheme } from '@mui/material';
-import OrderDetail from '../orderDetail/OrderDetail';
 import { Box } from '@mui/system';
 import { ProductDocument } from '../../redux/interfaces/products/product.interface';
 
@@ -73,14 +72,16 @@ const UserOrders: React.FC<Props> = ({ user }) => {
     order?.products.forEach(product => {
       return array?.push(products.find((ele: any) => ele._id === product.productId))
     })
-    console.log(array)
     return array
   }
   findProducts()
 
   return (
     <>
-      <Container sx={{ m: 1, height: '50vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Typography sx={{ml: 4, mt: 4, fontFamily: "Montez"}} variant='h3'>
+        My Orders
+      </Typography>
+      <Container sx={{ m: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <DataTable columns={columns} data={data} pagination highlightOnHover />
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>

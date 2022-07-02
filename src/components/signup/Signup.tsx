@@ -10,9 +10,9 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Alert, Avatar, Container, CssBaseline, Grid, Snackbar, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Container, CssBaseline, Grid, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { Colors } from '../../styles/theme';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify'
@@ -24,9 +24,9 @@ function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" to="#">
-                Your Website
-            </Link>{' '}
+            <a color="inherit" target="_blank" rel="noreferrer" href="https://portfolio-kimberly-blandon.vercel.app/">
+                Kimberly Blandon
+            </a>{' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -66,16 +66,15 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
     const [error, setError] = useState<any>('')
 
     useEffect(() => {
-        if(isError){
+        if (isError) {
             setError(errorMessageRegister)
             console.log(error)
         }
         if (isSuccess) {
             close()
-            // navigate('/')
         }
         dispatch(reset())
-    }, [response, close, isError, isSuccess, navigate, dispatch])
+    }, [response, close, isError, isSuccess, navigate, dispatch, errorMessageRegister, error])
 
 
     const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
@@ -96,7 +95,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
         setFormValues(initialValues)
         setFormErrors({ name: '', lastname: '', email: '', password: '', confirmPassword: '' })
         setError('')
-        if(!errorMessageRegister) close()
+        if (!errorMessageRegister) close()
         toast.success('Succesfully registered! You can now verify your email for activate account!', { toastId: 'registered' })
         navigate('/')
     }
@@ -116,6 +115,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
     }
     const validate = ((values: { name: string; lastname: string; email: string; password: string; confirmPassword: string; }) => {
         let errors: errorsType = { name: '', lastname: '', email: '', password: '', confirmPassword: '' }
+        // eslint-disable-next-line no-useless-escape
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
         const regexPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})')
         if (!values.name || !values.lastname) {
@@ -281,7 +281,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                             />
                             <Box>
                                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.confirmPassword}</Typography>
-                               { error ? (<Typography color={'red'} paragraph variant='subtitle2'>{error}</Typography>) : null}
+                                {error ? (<Typography color={'red'} paragraph variant='subtitle2'>{error}</Typography>) : null}
                             </Box>
 
 
@@ -295,7 +295,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                                 Sign Up
                             </Button>
                             <Grid container sx={{ display: 'flex', flexDirection: matches ? 'column' : 'row' }}>
-                               
+
                                 <Grid item sx={{ p: 1 }}>
                                     <span onClick={handleOpenLogin} style={{ textDecoration: 'none', color: Colors.secondary, cursor: 'pointer' }} >
                                         {"Already have an account? Sign In"}

@@ -27,6 +27,7 @@ const Home: React.FC = (): JSX.Element => {
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const { user } = useAppSelector(state => state.auth)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1)
 
 
@@ -60,6 +61,7 @@ const Home: React.FC = (): JSX.Element => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleOpenRegister = () => {
     setOpenRegister(true);
   };

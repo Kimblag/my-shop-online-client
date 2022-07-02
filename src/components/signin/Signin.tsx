@@ -1,11 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,7 +16,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { toast } from 'react-toastify';
 import { getUserInfo, login, reset } from '../../redux/features/auth/auth.slice';
 import Loader from '../loader/Loader';
 
@@ -29,9 +23,9 @@ function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" to="#">
-        Your Website
-      </Link>{' '}
+      <a color="inherit" target="_blank" rel="noreferrer" href="https://portfolio-kimberly-blandon.vercel.app/">
+        Kimberly Blandon
+      </a>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -104,6 +98,7 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   }
   const validate = ((values: { email: string; password: string; }) => {
     let errors: errorsType = { email: '', password: '' }
+    // eslint-disable-next-line no-useless-escape
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
     if (!values.email) {
       errors.email = 'Email is required'

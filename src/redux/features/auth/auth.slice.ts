@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
 import authService, { userData, userLoginData } from '../../services/auth/auth.services'
 import userService from '../../services/auth/user.services'
 

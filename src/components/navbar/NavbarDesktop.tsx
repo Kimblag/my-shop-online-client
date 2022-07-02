@@ -34,9 +34,9 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ user, matches, open, close }): J
                 </ListItem>
 
                 <ListItem>
-                    <Link to='/contact' style={{textDecoration: 'none', color: 'inherit'}}>
-                        <ListItemText primary="Contact" />
-                    </Link>
+                    {/* <Link to='/contact' style={{textDecoration: 'none', color: 'inherit'}}> */}
+                        <ListItemText sx={{cursor: 'pointer'}} primary="Contact" />
+                    {/* </Link> */}
                 </ListItem>
                 <ListItemButton>
                     <ListItemIcon onClick={() => setShowSearchBox(true)}>

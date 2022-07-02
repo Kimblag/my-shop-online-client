@@ -1,32 +1,29 @@
-import imageOne from './assets/slider/img1.jpg'
-import imageTwo from './assets/slider/img2.jpg'
-import imageThree from './assets/slider/img3.jpg'
 import smartphones from './assets/categories/smartphones.jpg'
 import laptops from './assets/categories/laptops.jpg'
 import headphones from './assets/categories/headphones.jpg'
 import featuredOne from './assets/featured/featured1.png'
+import headphone from './assets/slider/headphones.png'
+import macbookpro from './assets/slider/macbookpro.png'
+import iphone from './assets/slider/iphone.png'
 
 export const sliderItems = [
     {
         id: 1,
-        img: imageOne,
-        title: 'Autumn Sale',
+        img: headphone,
+        title: 'Sounds like the perfect deal',
         desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.",
-        bg: "#020200",
     },
     {
         id: 2,
-        img: imageTwo,
-        title: 'New iPhone',
+        img: macbookpro,
+        title: 'Think Different',
         desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.",
-        bg: "#2b2a2e",
     },
     {
         id: 3,
-        img: imageThree,
-        title: 'Sounds like the perfect deal',
+        img: iphone,
+        title: 'Discover a new world',
         desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.",
-        bg: "#11100f",
     },
 ]
 

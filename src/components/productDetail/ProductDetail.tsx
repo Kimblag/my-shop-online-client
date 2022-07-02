@@ -7,11 +7,16 @@ import { Product, ProductDetailInfoWrapper, ProductDetailWrapper, ProductImage }
 import ButtonIncDec from '../ui/ButtonIncDec'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { ProductDocument } from '../../redux/interfaces/products/product.interface'
+import { useAppSelector } from '../../redux/hooks'
 
 export interface IProps {
     open: boolean
     onClose: () => void
     product: ProductDocument
+    favorites: Array<string>
+    handleWishList: (e: { preventDefault: () => void }) => void
+    userId: string | undefined
+    local: boolean
 }
 interface TransitionProps {
     children: React.ReactElement<any, any>;
@@ -21,9 +26,16 @@ const Transition = React.forwardRef((props: TransitionProps, ref) => (
     <Slide direction="down" ref={ref} {...props} />
 ));
 
-const ProductDetail: React.FC<IProps> = ({ open, onClose, product }): JSX.Element | null => {
+const ProductDetail: React.FC<IProps> = ({ local, open, onClose, product, favorites, handleWishList, userId }): JSX.Element | null => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down('md'))
+    const { user } = useAppSelector(state => state.auth)
+    const { favoriteItems } = useAppSelector(state => state.wishlist)
+    if (user?.data) {
+        if (favoriteItems?.data !== undefined && favoriteItems?.data !== null) {
+            favoriteItems?.data.forEach(product => favorites.push(product.favorites._id))
+        }
+    }
     const modal = (
         <Dialog
             TransitionComponent={Transition}
@@ -63,28 +75,28 @@ const ProductDetail: React.FC<IProps> = ({ open, onClose, product }): JSX.Elemen
                         alignItems='center'
                         justifyContent='space-between'
                     >
-                        {/*//* buttons */}
                         <ButtonIncDec product={product} />
-
-                        {/* <Button variant='contained'>Add to cart</Button> */}
                     </Box>
                     <Box
                         display='flex'
                         alignItems='center'
                         sx={{ mt: 4, color: Colors.primary }}
                     >
-                        <Button onClick={() => {
-                            
-                        }} sx={{width: '200px'}}>
-                            <FavoriteIcon sx={{ mr: 2 }} />
-                            Add to wishlist
-                        </Button>
+                        {local === false
+                            ? (
+                                <Button onClick={(e) => handleWishList(e) } sx={{ width: '200px' }}>
+                                    <FavoriteIcon sx={{ mr: 2 }} />
+                                    Add to wishlist
+                                </Button>
+                            )
+                            : (
+                                <Button onClick={(e) => handleWishList(e)} sx={{ width: '200px' }}>
+                                    <FavoriteIcon sx={{ mr: 2 }} />
+                                    Remove from wishlist
+                                </Button>
+                            )
+                        }
                     </Box>
-                    {/* <Box sx={{ mt: 4, color: Colors.primary }}>
-                        <Facebook />
-                        <Twitter sx={{ pl: theme.spacing(4) }} />
-                        <Instagram sx={{ pl: theme.spacing(4) }} />
-                    </Box> */}
                 </ProductDetailInfoWrapper>
             </ProductDetailWrapper>
             <DialogContent>

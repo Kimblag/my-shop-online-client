@@ -1,16 +1,14 @@
-import { Typography, useMediaQuery } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
+import { Typography } from '@mui/material'
 import headphones from '../../assets/slider/headphones.png'
-
 import React from 'react'
 import { Bannercontainer, BannerContent, BannerDescription, BannerImage, BannerShopButton, BannerTitle } from '../../styles/banner'
 import { Colors } from '../../styles/theme'
 import { useNavigate } from 'react-router-dom'
 
 const Banner: React.FC = (): JSX.Element => {
-    const theme = useTheme()
     const navigate = useNavigate()
-    const matches = useMediaQuery(theme.breakpoints.down('md'))
+
+    
 
     return (
         <Bannercontainer>

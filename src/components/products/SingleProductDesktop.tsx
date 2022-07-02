@@ -129,7 +129,7 @@ const SingleProductDesktop: React.FC<Props> = ({ product, matches }): JSX.Elemen
                 </ProductActionsWrapper>
             </Product>
             <ProductMeta product={product} matches={matches} />
-            <ProductDetail open={open} onClose={toggle} product={product} />
+            <ProductDetail local={local} userId={userId} favorites={favorites} handleWishList={handleWishList} open={open} onClose={toggle} product={product} />
 
         </>
     )
