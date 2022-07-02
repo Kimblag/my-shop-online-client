@@ -56,7 +56,7 @@ export default function Review() {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total Discount" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'red' }}>
-            - %{calculatePercentageDiscount() ? calculatePercentageDiscount() : 0}
+            - %{calculatePercentageDiscount() ? calculatePercentageDiscount().toFixed(2) : 0}
           </Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
