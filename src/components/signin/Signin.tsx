@@ -10,7 +10,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Avatar, Checkbox, Container, CssBaseline, FormControlLabel, Grid, InputAdornment, OutlinedInput, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Container, CssBaseline, Grid, InputAdornment, OutlinedInput, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { Colors } from '../../styles/theme';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
