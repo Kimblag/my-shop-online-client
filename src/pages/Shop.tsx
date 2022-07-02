@@ -26,7 +26,7 @@ const Shop: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-  const { user } = useAppSelector(state => state.auth)
+  const { user, responseEncode } = useAppSelector(state => state.auth)
 
   type userDecodeType = {
     exp: number
@@ -39,12 +39,12 @@ const Shop: React.FC = (): JSX.Element => {
     const userDecode: userDecodeType = JSON.parse(window.localStorage.getItem('user') || '{}')
     const userId: string = userDecode?.id
     dispatch(getUserInfo(userId))
-    dispatch(getUserFavorites(userId))
+    dispatch(getUserFavorites({userId, token: responseEncode as string}))
     setTimeout(() => {
       dispatch(reset())
       dispatch(resetFavorite())
     }, 800)
-  }, [dispatch])
+  }, [dispatch, responseEncode])
 
 
   const handleClickOpen = () => {

@@ -18,7 +18,7 @@ const WishList: React.FC = (): JSX.Element => {
     const navigate = useNavigate()
     const { showFavorites, setShowFavorites } = useUIContext()
     const { favoriteItems } = useAppSelector(state => state.wishlist)
-    const { user } = useAppSelector(state => state.auth)
+    const { user, responseEncode } = useAppSelector(state => state.auth)
     const { cartItems } = useAppSelector(state => state.cart)
     const verifyProductInCart = (id: string, product: ProductDocument) => {
         const isInCart = cartItems.find(item => item._id === id)
@@ -52,8 +52,8 @@ const WishList: React.FC = (): JSX.Element => {
                     </Button>
                     <Button
                         onClick={() => {
-                            dispatch(removeProductFavorites(item._id))
-                            dispatch(getUserFavorites(user?.data?.id as string))
+                            dispatch(removeProductFavorites({productId: item._id, token: responseEncode as string}))
+                            dispatch(getUserFavorites({userId: user?.data?.id as string, token: responseEncode as string}))
                         }}
                     >
                         <DeleteForeverRoundedIcon />

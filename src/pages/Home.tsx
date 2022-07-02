@@ -26,7 +26,7 @@ const Home: React.FC = (): JSX.Element => {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-  const { user } = useAppSelector(state => state.auth)
+  const { user, responseEncode } = useAppSelector(state => state.auth)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -44,12 +44,12 @@ const Home: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(getUserInfo(userId))
-    dispatch(getUserFavorites(userId))
+    dispatch(getUserFavorites({ userId, token: responseEncode as string }))
     setTimeout(() => {
       dispatch(reset())
       dispatch(resetFavorite())
     }, 800)
-  }, [dispatch, userId])
+  }, [dispatch, responseEncode, userId])
 
   //TODO validar si esta el usuario en local storage y despachar la action.
 
@@ -69,6 +69,7 @@ const Home: React.FC = (): JSX.Element => {
   const handleCloseRegister = () => {
     setOpenRegister(false);
   };
+
 
   useEffect(() => {
     setLoading(true)

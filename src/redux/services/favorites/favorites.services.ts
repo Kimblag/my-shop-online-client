@@ -1,38 +1,36 @@
 import axios from "axios";
-import { addProductProps } from "../../features/favorites/favorites.slice";
+import { ProductDocument } from "../../interfaces/products/product.interface";
 
 export type getUserFavoriteProps = {
     userId: string
 }
-const API_URL = '/api/'
+const API_URL = (process.env.REACT_APP_API_URL)
 
-const getUserFavorite = async (userId: string | undefined) => {
-    // let config = {
-    //     headers: {Authorization: `Bearer ${token}`}
-    // }
-    const response = await axios.get(API_URL + '/wishlist/' + userId)
+const getUserFavorite = async ({userId, token}:{userId: string | undefined, token: string}) => {
+    let config = {
+        headers: {Authorization: `Bearer ${token}`}
+    }
+    const response = await axios.get(`${API_URL}/api/wishlist/${userId}`, config)
     return response.data
 }
 
-const addUserFavorite = async ({ userId, product }: addProductProps) => {
-    // let config = {
-    //     headers: {Authorization: `Bearer ${token}`}
-    // }
+const addUserFavorite = async ({ userId, product, token }: {userId: string |undefined, product: ProductDocument, token: string}) => {
+    let config = {
+        headers: {Authorization: `Bearer ${token}`}
+    }
     let favorite = {
         userId: userId,
         favorites: product
     }
-    const response = await axios.post(API_URL + '/wishlist/add', favorite)
+    const response = await axios.post(`${API_URL}/api/wishlist/add`, favorite, config)
     return response.data
 }
 
-const removeUserFavorite = async (productId: string) => {
-    // let config = {
-    //     headers: {Authorization: `Bearer ${token}`}
-    // }
-    console.log(productId)
-    const response = await axios.put(API_URL + '/wishlist/remove', { id: productId })
-    console.log(response.data)
+const removeUserFavorite = async ({productId, token}: {productId: string, token: string}) => {
+    let config = {
+        headers: {Authorization: `Bearer ${token}`}
+    }
+    const response = await axios.put(`${API_URL}/api/wishlist/remove`, { id: productId }, config)
     return response.data
 }
 

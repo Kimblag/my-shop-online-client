@@ -62,11 +62,11 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   const [error, setError] = useState<any>('')
 
   type userDecodeType = {
-      exp: number
-      iat: number
-      id: string
-      isAdmin: boolean
-   
+    exp: number
+    iat: number
+    id: string
+    isAdmin: boolean
+
   }
 
   useEffect(() => {
@@ -76,7 +76,6 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     }
     if (isSuccess) {
       close()
-      // navigate('/')
       dispatch(reset())
     }
   }, [response, userState, close, isSuccess, isError, navigate, dispatch, errorMessageLogin, error])
@@ -117,6 +116,10 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
     close()
     openRegister()
   }
+  const handleOpenForgotPassword = () => {
+    close()
+    navigate('/forgot-password')
+  }
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
@@ -133,9 +136,9 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
       dispatch(getUserInfo(userId))
       setFormValues(initialValues)
       setFormErrors({ email: '', password: '' })
-      setError('') 
+      setError('')
       navigate('/')
-   
+
     }
   }
 
@@ -218,10 +221,10 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
               <Box>
                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.password}</Typography>
                 {error ? (
-                <Typography variant='caption' color={'red'}>{error}</Typography>
-              ) : null}
+                  <Typography variant='caption' color={'red'}>{error}</Typography>
+                ) : null}
               </Box>
-              
+
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -237,9 +240,9 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
               </Button>
               <Grid container sx={{ display: 'flex', flexDirection: matches ? 'column' : 'row' }}>
                 <Grid item xs sx={{ p: 1 }}>
-                  <Link to="#" style={{ textDecoration: 'none', color: Colors.secondary }}>
+                  <span onClick={handleOpenForgotPassword} style={{ textDecoration: 'none', color: Colors.secondary, cursor: 'pointer' }}>
                     Forgot password?
-                  </Link>
+                  </span>
                 </Grid>
                 <Grid item sx={{ p: 1 }}>
                   <span onClick={handleOpenRegister} style={{ textDecoration: 'none', color: Colors.secondary, cursor: 'pointer' }} >

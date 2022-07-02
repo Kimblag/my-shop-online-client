@@ -34,7 +34,7 @@ const Orders = () => {
         const userId: string = userDecode?.id
         dispatch(getProducts(null))
         dispatch(getUserInfo(userId))
-        dispatch(getUserFavorites(userId))
+        dispatch(getUserFavorites({ userId, token: responseEncode as string }))
         dispatch(getUserOrders({ userId, token: responseEncode as string }))
         setTimeout(() => {
             dispatch(reset())

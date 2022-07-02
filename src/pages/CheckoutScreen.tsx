@@ -3,9 +3,10 @@ import Checkout from '../components/checkout/Checkout'
 import Footer from '../components/footer/Footer'
 import { getUserInfo, reset } from '../redux/features/auth/auth.slice'
 import { getUserFavorites, resetFavorite } from '../redux/features/favorites/favorites.slice'
-import { useAppDispatch } from '../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
 
 const CheckoutScreen = () => {
+  const { responseEncode } = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
   type userDecodeType = {
     exp: number
@@ -19,12 +20,12 @@ const CheckoutScreen = () => {
 
   useEffect(() => {
     dispatch(getUserInfo(userId))
-    dispatch(getUserFavorites(userId))
+    dispatch(getUserFavorites({userId, token: responseEncode as string}))
     setTimeout(() => {
       dispatch(reset())
       dispatch(resetFavorite())
     }, 800)
-  }, [dispatch, userId])
+  }, [dispatch, responseEncode, userId])
   return (
     <div>
       <Checkout />
