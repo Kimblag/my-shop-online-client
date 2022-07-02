@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css';
-import { Routes, Route } from "react-router-dom"
-import Home from './pages/Home'
-import Shop from './pages/Shop'
-import { Alert, ThemeProvider } from '@mui/material'
 import theme from './styles/theme'
+import { Routes, Route } from "react-router-dom"
+import { Alert, ThemeProvider } from '@mui/material'
 import { UIContext } from './components/context/ui'
 import { Cart } from './redux/interfaces/cart/cart.interface'
 import { ToastContainer } from 'react-toastify';
-import CheckoutScreen from './pages/CheckoutScreen';
-import Profile from './pages/Profile';
-import Orders from './pages/Orders';
 import { useAppSelector } from './redux/hooks';
-import ProtectedRoute from './pages/ProtectedRoute';
+import CheckoutScreen from './pages/CheckoutScreen';
+import Home from './pages/Home'
+import Orders from './pages/Orders'
+import Profile from './pages/Profile'
+import ProtectedRoute from './pages/ProtectedRoute'
+import Shop from './pages/Shop'
 
 const App: React.FC = (): JSX.Element => {
   const [drawerOpen, setDrawerOpen] = useState(false)

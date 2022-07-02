@@ -69,21 +69,25 @@ export default function AddressForm() {
                     zip: input.zipcode || ''
                 }
             }
+            const API_URL = '/api/'
 
             const config = {
                 headers: { Authorization: `Bearer ${responseEncode}` }
             }
-            const response = await axios.put('http://localhost:3001/api/user/update', newData, config)
+            const response = await axios.put(`${API_URL}user/update`, newData, config)
+            dispatch(getUserInfo(userId))
+            dispatch(reset())
             setInput({
                 name: '',
                 lastname: '',
-                address: "",
-                address2: "",
-                state: "",
-                zipcode: "",
-                city: "",
-                country: "",
+                address: '',
+                address2: '',
+                state: '',
+                zipcode: '',
+                city: '',
+                country: '',
             })
+
             response.data.status === 'success'
                 ? toast.success('Information updated correctly')
                 : toast.error('Something goes wrong')

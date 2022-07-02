@@ -79,7 +79,7 @@ const Checkout: React.FC = () => {
             }
         })
     }
-
+    const API_URL = '/api/'
     const handlePlaceOrder = async () => {
         let config = {
             headers: { Authorization: `Bearer ${responseEncode}` }
@@ -92,7 +92,7 @@ const Checkout: React.FC = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/order', infoUserCart, config)
+            const response = await axios.post(`${API_URL}order`, infoUserCart, config)
             console.log(response.data)
             let userInfo: getUserCartProps = { userId: user?.data.id, token: responseEncode }
             dispatch(getUserCart(userInfo))
