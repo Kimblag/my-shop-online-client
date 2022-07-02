@@ -11,7 +11,6 @@ const getUserCart = async ({userId, token}: getUserCartProps) => {
         headers: {Authorization: `Bearer ${token}`}
     }
     const response = await axios.get(`${API_URL}/api/order/find/${userId}`, config)
-    console.log(response.data)
     return response.data
 }
 

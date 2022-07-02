@@ -114,7 +114,6 @@ const UserProfile = () => {
           showPassword: false,
           showConfirmPassword: false,
         })
-        console.log(response.data)
         response.data.status === 'success'
           ? toast.success('Password updated correctly')
           : toast.error('Something goes wrong')

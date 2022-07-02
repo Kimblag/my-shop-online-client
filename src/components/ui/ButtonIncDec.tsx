@@ -19,7 +19,6 @@ const ButtonIncDec: React.FC<Props> = ({ product, matches }): JSX.Element => {
   const clampValue = clamp(1, 10)
   const [value, setValue] = useState<number>(0)
   const countItemsInCart = cartItems.find(item => item._id === product._id)?.quantity
-  console.log(countItemsInCart)
   
   return (
     <Box display='flex' flexDirection={matches ? 'column' : 'row'}>

@@ -33,7 +33,6 @@ const App: React.FC = (): JSX.Element => {
     }
   }, [user])
 
-  console.log(isAuth)
   return (
     <ThemeProvider theme={theme}>
       <UIContext.Provider value={{ showFavorites, setShowFavorites, drawerOpen, setDrawerOpen, showSearchBox, setShowSearchBox, cart, setCart, showCart, setShowCart, }} >

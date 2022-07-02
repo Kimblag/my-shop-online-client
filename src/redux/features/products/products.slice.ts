@@ -74,7 +74,6 @@ type orderType = {
     order: string
 }
 const sortProductPrices = (array: ProductDocument[], payload: any) => {
-    console.log(payload)
     if (payload === 'High') {
         array.sort((a: ProductDocument, b: ProductDocument) => b.price - a.price)
     }
@@ -89,7 +88,6 @@ export const productSlice = createSlice({
     initialState,
     reducers: {
         filteredProducts(state: FilterState, action: { payload: filterType }) {
-            console.log(action.payload)
             let productsFilterByBrand = filterByBrand(state.products, action.payload.brand)
             let productsFilterByCategory = filterByCategories(productsFilterByBrand, action.payload.category)
             let sorted = sortProductPrices(productsFilterByCategory, state.filter.order)
@@ -102,10 +100,8 @@ export const productSlice = createSlice({
             }
         },
         orderedProducts(state: FilterState, action: { payload: orderType }) {
-            console.log(action.payload)
             const previousState = state.productsFilter
             let sorted = sortProductPrices(previousState, action.payload)
-            console.log(sorted)
             state.productsFilter = sorted
             state.filter = {
                 ...state.filter,

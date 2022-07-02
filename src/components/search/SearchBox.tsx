@@ -40,7 +40,6 @@ const SearchBox: React.FC<Props> = ({setCurrentPage}): JSX.Element => {
         setSearch('')
       }
     } catch (error: any) {
-      console.log('SOY ERROR')
       console.error(error || error.message)
     }
   }
