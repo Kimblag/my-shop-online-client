@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify';
 import { Cart } from '../../interfaces/cart/cart.interface';
 import { ProductDocument } from '../../interfaces/products/product.interface';
 import productService from '../../services/products/products.service';
@@ -10,9 +9,10 @@ export interface AsyncState {
     isError: boolean;
 }
 export interface ProductState extends AsyncState {
-    products: ProductDocument[]
+    products: ProductDocument[] | []
     cart: Cart
-    productsFilter: ProductDocument[]
+    productsFilter: ProductDocument[] | []
+    error: any
 }
 
 export interface FilterState extends ProductState {
@@ -35,18 +35,16 @@ const initialState: FilterState = {
         order: 'All'
     },
     cart: [],
+    error: ''
 }
 
 
-export const getProducts = createAsyncThunk('product', async (query: string | null) => {
+export const getProducts = createAsyncThunk('product', async (query: string | null, thunkAPI) => {
     try {
         return await productService.getProducts(query);
     } catch (error: any) {
-        toast.warn(error.response.data.message, {
-            toastId: 'errorGet', autoClose: 2000,
-            position: toast.POSITION.TOP_CENTER,
-        })
-        console.error('Error: ', error)
+        const message = error.response.data.errors.message || error.response
+        return thunkAPI.rejectWithValue(message)
     }
 })
 
@@ -71,6 +69,8 @@ type filterType = {
     order: string
 }
 type orderType = {
+    brand: string
+    category: string
     order: string
 }
 const sortProductPrices = (array: ProductDocument[], payload: any) => {
@@ -114,23 +114,18 @@ export const productSlice = createSlice({
             .addCase(getProducts.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(getProducts.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.products = action.payload?.data || []
-                state.productsFilter = action.payload?.data || []
-                state.filter = {
-                    brand: 'AllBrands',
-                    category: 'AllCategories',
-                    order: 'All'
-                }
-            })
-            .addCase(getProducts.rejected, (state) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.products = []
-                state.productsFilter = []
-            })
+            .addCase(getProducts.fulfilled, (state, action) => ({
+                ...state,
+                products: action.payload,
+                productsFilter: action.payload,
+                isLoading: false
+                
+            }))
+            .addCase(getProducts.rejected, (state, action) => ({
+               ...state,
+               isError: true,
+               error: action.payload
+            }))
     }
 })
 

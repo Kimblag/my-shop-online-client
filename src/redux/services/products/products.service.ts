@@ -1,5 +1,4 @@
 import axios from "axios"
-import { ProductDocument } from "../../interfaces/products/product.interface"
 
 export type Props = {
     query?: string | null | undefined
@@ -7,8 +6,8 @@ export type Props = {
 const API_URL = (process.env.REACT_APP_API_URL)
 
 const getProducts = async (query: string | null) => {
-    const response = await axios.get<ProductDocument[]>(`${API_URL}/api/products/?name=${query ? query : ''}`)
-    return response
+    const response = await axios.get(`${API_URL}/api/products/?name=${query ? query : ''}`)
+    return response.data
 }
 
 const productService = {
