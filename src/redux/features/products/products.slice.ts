@@ -13,6 +13,7 @@ export interface ProductState extends AsyncState {
     cart: Cart
     productsFilter: ProductDocument[] | []
     error: any
+    message: string
 }
 
 export interface FilterState extends ProductState {
@@ -27,6 +28,7 @@ const initialState: FilterState = {
     isLoading: false,
     isSuccess: false,
     isError: false,
+    message: '',
     products: [],
     productsFilter: [],
     filter: {
@@ -123,9 +125,10 @@ export const productSlice = createSlice({
             })
             .addCase(getProducts.fulfilled, (state, action) => ({
                 ...state,
-                products: action.payload,
-                productsFilter: action.payload,
-                isLoading: false
+                products: action.payload.data,
+                productsFilter: action.payload.data,
+                isLoading: false,
+                message: action.payload.message
 
             }))
             .addCase(getProducts.rejected, (state, action) => ({

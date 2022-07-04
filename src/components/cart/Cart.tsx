@@ -30,7 +30,7 @@ const Cart: React.FC = (): JSX.Element => {
                 <Box display='flex' flexDirection={'column'}>
                     <Typography color={Colors.primary} variant='h6'>{item.name}</Typography>
                     {!matches && <Typography color={Colors.primary} variant='subtitle1'>{item.description}</Typography>}
-                    <Typography color={Colors.primary} variant='body1' justifyContent={'end'}>TOTAL: ${item.price * item.quantity}</Typography>
+                    <Typography color={Colors.primary} variant='body1' justifyContent={'end'}>TOTAL: <b>${item.price * item.quantity}</b></Typography>
                 </Box>
                 <Box display='flex' flexDirection={'column'} alignItems='center' justifyContent={'center'}>
                     <Button onClick={() => {
@@ -77,7 +77,7 @@ const Cart: React.FC = (): JSX.Element => {
                             Subtotal: ${cartTotalAmount}
                         </Typography>
                         <Typography variant='h6' color={Colors.black} >
-                            Quantity: ${cartTotalQuantity}
+                            Quantity: {cartTotalQuantity}
                         </Typography>
                     </Paper>
 

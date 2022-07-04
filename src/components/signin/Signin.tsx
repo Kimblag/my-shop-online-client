@@ -73,7 +73,7 @@ const Signin: React.FC<Props> = ({ open, close, openRegister }) => {
   useEffect(() => {
     if (isError) {
       setError(errorMessageLogin)
-      console.log(error)
+      // console.log(error)
     }
     if (isSuccess) {
       close()
