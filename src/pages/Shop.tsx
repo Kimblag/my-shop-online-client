@@ -77,11 +77,11 @@ const Shop: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     setLoading(true);
-    if (products.length === 0) {
+    // if (products.length === 0) {
       dispatch(getProducts(null))
-    }
+    // }
     timer(500)
-  }, [dispatch, products.length])
+  }, [dispatch])
 
   const totalProducts = productsFilter.length
   const pageSize = 8

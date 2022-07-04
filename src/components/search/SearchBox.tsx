@@ -15,7 +15,7 @@ type Props = {
 }
 const SearchBox: React.FC<Props> = ({setCurrentPage}): JSX.Element => {
   const { showSearchBox, setShowSearchBox } = useUIContext()
-  const [search, setSearch] = useState<string | null | undefined>('' || null || undefined)
+  const [search, setSearch] = useState<string | null >('')
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const handleOnChange = (e: { preventDefault: () => void; target: { value: string; }; }) => {
@@ -34,6 +34,7 @@ const SearchBox: React.FC<Props> = ({setCurrentPage}): JSX.Element => {
         })
       } else {
         dispatch(getProducts(search))
+        console.log(dispatch(getProducts(search)))
         setCurrentPage(1)
         navigate('/shop')
         setShowSearchBox(false)

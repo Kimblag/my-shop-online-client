@@ -59,13 +59,14 @@ const ProductDetail: React.FC<IProps> = ({ local, open, onClose, product, favori
                     <ProductImage src={product.image} />
                 </Product>
                 <ProductDetailInfoWrapper>
-                    <Typography variant='subtitle1'>Availability: {product.stock} in stock</Typography>
+                    {/* <Typography variant='subtitle1'>Availability: {product.stock} in stock</Typography> */}
                     <Typography variant='h4' sx={{ lineHeight: 2 }}>{product.name}</Typography>
-                    <Typography>${product.price}</Typography>
+                    <Typography variant='h5'>${product.price}</Typography>
                     <Typography variant='body1'>
-                        {product.description}
-                        {product.description}
-                        {product.description}
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </Typography>
                     <Box
                         sx={{
@@ -84,7 +85,7 @@ const ProductDetail: React.FC<IProps> = ({ local, open, onClose, product, favori
                     >
                         {local === false
                             ? (
-                                <Button onClick={(e) => handleWishList(e) } sx={{ width: '200px' }}>
+                                <Button onClick={(e) => handleWishList(e)} sx={{ width: '200px' }}>
                                     <FavoriteIcon sx={{ mr: 2 }} />
                                     Add to wishlist
                                 </Button>

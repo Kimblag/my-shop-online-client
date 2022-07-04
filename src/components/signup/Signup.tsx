@@ -10,7 +10,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Avatar, Container, CssBaseline, Grid, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Container, CssBaseline, Grid, InputAdornment, OutlinedInput, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { Colors } from '../../styles/theme';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -19,6 +19,7 @@ import { toast } from 'react-toastify'
 import { reset, register } from '../../redux/features/auth/auth.slice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Loader from '../loader/Loader';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Copyright(props: any) {
     return (
@@ -55,7 +56,7 @@ type Props = {
 const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.down('md'))
-    const initialValues = { name: '', lastname: '', email: '', password: '', confirmPassword: '' }
+    const initialValues = { name: '', lastname: '', email: '', password: '', confirmPassword: '', showPassword: false, showConfirmPassword: false }
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState<{ name: string, lastname: string, email: string, password: string, confirmPassword: string }>({ name: '', lastname: '', email: '', password: '', confirmPassword: '' })
     const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -145,6 +146,24 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
         close()
         openLogin()
     }
+    const handleClickShowPassword = () => {
+setFormValues({
+      ...formValues,
+      showPassword: !formValues.showPassword,
+    });
+    }
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    }
+    const handleClickShowConfirmPassword = () => {
+setFormValues({
+      ...formValues,
+      showConfirmPassword: !formValues.showConfirmPassword,
+    });
+    }
+    const handleMouseDownConfirmPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    }
 
     if (isLoading) {
         return <Loader />
@@ -182,7 +201,7 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                     <CssBaseline />
                     <Box
                         sx={{
-                            marginTop: 8,
+                            marginTop: 4,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -244,13 +263,12 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                             <Box>
                                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.email}</Typography>
                             </Box>
-                            <TextField
-                                margin="normal"
+                            <OutlinedInput
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
-                                type="password"
+                                placeholder="Password"
+                                type={formValues.showPassword ? 'text' : 'password'}
                                 id="password"
                                 autoComplete="current-password"
                                 value={formValues.password}
@@ -259,6 +277,18 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                                     setPasswordHelper(true)
                                 }}
                                 onBlur={() => setPasswordHelper(false)}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                      >
+                                        {formValues.showPassword ? <VisibilityOff /> : <Visibility />}
+                                      </IconButton>
+                                    </InputAdornment>
+                                  }
                             />
                             <Box>
                                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.password}</Typography>
@@ -266,18 +296,28 @@ const Signup: React.FC<Props> = ({ open, close, openLogin }) => {
                             {passwordHelper && (<Box>
                                 <Typography color={'black'} paragraph variant='caption'>❥ One lower case letter<br /> ❥ One upper case letter<br /> ❥ One number <br /> ❥ One special character <br /> ❥ At least 6 characters long</Typography>
                             </Box>)}
-                            <TextField
-                                margin="normal"
+                            <OutlinedInput
                                 required
                                 fullWidth
-                                type="password"
+                                type={formValues.showConfirmPassword ? 'text' : 'password'}
                                 id="confirmPassword"
-                                label="Confirm Password"
+                                placeholder="Confirm Password"
                                 name="confirmPassword"
                                 autoComplete="confirmPassword"
-                                autoFocus
                                 value={formValues.confirmPassword}
                                 onChange={handleInputChange}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowConfirmPassword}
+                                            onMouseDown={handleMouseDownConfirmPassword}
+                                            edge="end"
+                                        >
+                                            {formValues.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
                             />
                             <Box>
                                 <Typography color={'red'} paragraph variant='subtitle2'>{formErrors.confirmPassword}</Typography>
